@@ -2797,13 +2797,20 @@ form textarea:focus,
     pointer-events: all;
   }
 }
-.trm-publication h4:before,
+/* .trm-publication h4:before,
 .trm-publication h5:before,
 .trm-publication h6:before {
   display: inline-block;
   width: 1em;
-  content: " ";
+  content: "#";
+} */
+
+.trm-publication h4::before,
+.trm-publication h5::before,
+.trm-publication h6::before {
+  display: none !important;
 }
+
 .trm-publication h1 {
   font-size: 2.5em;
 }
