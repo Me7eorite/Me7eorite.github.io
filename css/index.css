@@ -2802,7 +2802,7 @@ form textarea:focus,
 .trm-publication h6:before {
   display: inline-block;
   width: 1em;
-  content: "#";
+  content: " ";
 }
 .trm-publication h1 {
   font-size: 2.5em;
