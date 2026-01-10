@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="哈希函数 哈希是什么 哈希函数:  将任意数据(二进制字符串)映射为固定长度&quot;数字指纹&quot;的单向散列函数，可用于验证数据完整性和保护敏感信息。 使用过程:  输入(任意长度数据) &#x3D;&gt;【黑盒函数(H: ${0,1}^{*} &#x3D;&gt; {0,1}^{n}$)】 &#x3D;&gt; 固定长度摘要(不可逆推) 哈希核心特性  单向性: 只有哈希过程，不存在可逆的解密过程，无法反向计算。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="密码学基础-哈希函数与数字签名">
+<meta property="og:url" content="http://example.com/2025/12/26/WEB3/cryptography_basics/index.html">
+<meta property="og:site_name" content="me7eorite">
+<meta property="og:description" content="哈希函数 哈希是什么 哈希函数:  将任意数据(二进制字符串)映射为固定长度&quot;数字指纹&quot;的单向散列函数，可用于验证数据完整性和保护敏感信息。 使用过程:  输入(任意长度数据) &#x3D;&gt;【黑盒函数(H: ${0,1}^{*} &#x3D;&gt; {0,1}^{n}$)】 &#x3D;&gt; 固定长度摘要(不可逆推) 哈希核心特性  单向性: 只有哈希过程，不存在可逆的解密过程，无法反向计算。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-12-26T05:05:24.136Z">
+<meta property="article:modified_time" content="2026-01-10T08:13:35.211Z">
+<meta property="article:author" content="me7eorite">
+<meta name="twitter:card" content="summary">
+
+
+<title >密码学基础-哈希函数与数字签名</title>
+
+<!-- Favicon -->
+
+    <link href='/img/favicon.svg?v=2.2.7' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/img/favicon.svg?v=2.2.7' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+<link rel="stylesheet" href="https://unpkg.com/katex@latest/dist/katex.min.css">
+
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"me7eorite","root":"/","typed_text":null,"theme_version":"2.2.7","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/favicon.svg","icon16":"/img/favicon.svg","icon32":"/img/favicon.svg","apple_touch_icon":null,"webmanifest":null,"visibilitychange":true,"hidden":"/failure.ico","show_text":"(/≧▽≦/)Hey! Good again!","hide_text":"(●—●)Oh, crash!"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":false},"live_time":{"start_time":"","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2026-01-10 16:13:35"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.7" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+ 
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="me7eorite" type="application/atom+xml">
+</head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/img/favicon.svg">
+    
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    首页
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/categories/" target="">
+                    分类
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    归档
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            密码学基础-哈希函数与数字签名
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2025
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/avatar.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        me7eorite
+    </h5>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="https://me7eorite.github.io" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+        <a href="/atom.xml" title="" rel="nofollow" target="_blank">
+            <i class="iconfont fas fa-rss"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                Residence:
+            </div>
+            <div class="trm-label trm-label-light">
+                Mars
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                City:
+            </div>
+            <div class="trm-label trm-label-light">
+                BitPanda
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    <div class="trm-divider trm-mb-40 trm-mt-40"></div>
+    <!-- action button -->
+    <div class="text-center">
+        <a href="mailto:sca7tered@outlook.com" class="trm-btn">
+            Contact Me
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    </div>
+    <!-- action button end -->
+
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            12/26
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            13:05
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            me7eorite
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h2 id="哈希函数">哈希函数</h2>
+<h3 id="哈希是什么">哈希是什么</h3>
+<p><strong>哈希函数:</strong>  将任意数据(二进制字符串)<strong>映射</strong>为固定长度&quot;数字指纹&quot;的单向散列函数，可用于验证数据完整性和保护敏感信息。</p>
+<p><strong>使用过程:</strong>  输入(任意长度数据) =&gt;【黑盒函数(H: ${0,1}^{*} =&gt; {0,1}^{n}$)】 =&gt; 固定长度摘要(不可逆推)</p>
+<h4 id="哈希核心特性">哈希核心特性</h4>
+<ol>
+<li><strong>单向性:</strong> 只有哈希过程，不存在可逆的解密过程，无法反向计算。</li>
+<li><strong>确定性:</strong> 相同输入即会得到相同输出，根据这点可进行重复验证。</li>
+<li><strong>高效性:</strong> 能够快速计算大文件或者长文本的哈希值。</li>
+<li><strong>固定长度输出:</strong> 不管文件与文本的大小，输出的固定字符长度都是相同的。</li>
+<li><strong>雪崩效应:</strong> 当输入改变<code>1 bit</code>(轻微改变)，输出平均改变约 <code>50%</code> 的位，且改变不可预测的。</li>
+</ol>
+<h4 id="哈希安全机制">哈希安全机制</h4>
+<ol>
+<li>
+<p><strong>抗原像攻击(<code>PreImage Resistance</code>):</strong> 给定哈希值<code>h</code>，找到任意输入 <code>x</code> 使得 <code>H(x) = h</code> 是困难的</p>
+<ul>
+<li>攻击场景: 已知 <code>hash = &quot;a3b5c7d8.....&quot;</code> ，找到一个任意 <code>input</code> 使得 <code>H(input) = hash</code>。</li>
+<li>攻击难度: 需通过暴力尝试 $2^n$ 个可能性输入。例如，在<code>SHA-256</code>的情况下，<code>n=256</code>。<strong>理论上可能，实际上无法实现。</strong></li>
+</ul>
+</li>
+<li>
+<p><strong>第二原像攻击(<code>Second PreImage Resistance</code>):</strong> 给定输入 <code>x1</code> 和 <code>H(x1)</code>，找到另一个 <code>x2</code> 使得 <code>H(x2)=H(x1)</code> 是困难的</p>
+<ul>
+<li>攻击场景: 已知 <code>xx.pdf</code> 经计算后的 <code>hash = &quot;x1y2z3...&quot;</code>，需伪造 <code>evil-xx.pdf</code> 使得 <code>H(evil-xx.pdf) = &quot;x1y2z3...&quot;</code></li>
+<li>攻击难度: 需通过暴力尝试 $2^n$ 个可能性输入。</li>
+</ul>
+</li>
+<li>
+<p><strong>抗碰撞攻击(<code>Collision Resistance</code>):</strong> 找到任意两个不同的输入<code>x1 ≠ x2</code>，使得<code>H(x1) = H(x2)</code>是困难的</p>
+<ul>
+<li><strong>生日悖论:</strong> 在一个有23个人的房间里，有两人生日相同的概率&gt;50%，365天只需要√365≈23人就有50%碰撞概率。</li>
+<li>攻击场景: 在较少的尝试次数下,两组数据产生相同哈希值的概率可能比直觉预期要高。(<strong>生日攻击[<code>Birthday Attack</code>]</strong>:只影响抗碰撞性。)</li>
+<li>攻击难度: 为了抵御生日攻击，现代哈希函数的输出长度通常至少为 256 比特（如 SHA-256），这样需要 $2^{128}$ 次尝试，这远超目前计算机的算力极限。即便使用量子计算机也需要$2^{\frac{256}{3}}$次尝试。</li>
+</ul>
+</li>
+</ol>
+<h3 id="哈希的应用">哈希的应用</h3>
+<p><strong>核心问题:在不可信的环境中，如何高效验证大量数据的完整性和真实性？</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">应用场景</th>
+<th style="text-align:left">解决的问题</th>
+<th style="text-align:left">价值体现</th>
+<th style="text-align:center">使用算法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">文件传输校验</td>
+<td style="text-align:left">网络传输中的数据损坏/篡改</td>
+<td style="text-align:left">用64个字符验证10GB等大文件</td>
+<td style="text-align:center">SHA-256</td>
+</tr>
+<tr>
+<td style="text-align:left">密码存储</td>
+<td style="text-align:left">数据库泄漏导致密码暴露</td>
+<td style="text-align:left">不存储明文，无法反推</td>
+<td style="text-align:center">bcrypt/Argon2</td>
+</tr>
+<tr>
+<td style="text-align:left">数字签名</td>
+<td style="text-align:left">文件来源和完整性证明</td>
+<td style="text-align:left">防止伪造和抵赖</td>
+<td style="text-align:center">SHA-256</td>
+</tr>
+<tr>
+<td style="text-align:left">区块链</td>
+<td style="text-align:left">分布式账本防篡改</td>
+<td style="text-align:left">任何修改导致链断裂</td>
+<td style="text-align:center">SHA-256</td>
+</tr>
+<tr>
+<td style="text-align:left">版本控制</td>
+<td style="text-align:left">代码变更追踪</td>
+<td style="text-align:left">每次提交唯一标识</td>
+<td style="text-align:center">SHA -&gt; SHA-256</td>
+</tr>
+<tr>
+<td style="text-align:left">数字去重</td>
+<td style="text-align:left">云存储空间浪费</td>
+<td style="text-align:left">快速识别重复文件</td>
+<td style="text-align:center">MD5/SHA-256</td>
+</tr>
+</tbody>
+</table>
+<p><strong>哈希算法的价值</strong> = 效率提升 × 安全保障</p>
+<h3 id="常用哈希算法-区块链">常用哈希算法(区块链)</h3>
+<h4 id="SHA-256（比特币使用）"><code>SHA-256</code>（比特币使用）</h4>
+<p><strong>算法原理</strong></p>
+<p><strong>安全性分析</strong></p>
+<h4 id="Keccak256（以太坊使用）"><code>Keccak256</code>（以太坊使用）</h4>
+<p><strong>与SHA-3的关系</strong></p>
+<p><strong>为什么以太坊选择Keccak256</strong></p>
+<p><strong>与SHA-256的对比</strong></p>
+<h4 id="MD5-不安全，了解"><code>MD5</code> (不安全，了解)</h4>
+<h4 id="SHA-1-已被破解"><code>SHA-1</code> (已被破解)</h4>
+<h3 id="安全威胁">安全威胁</h3>
+<p>碰撞攻击(Collision Attack)</p>
+<p>长度扩展攻击(Length Extension Attack)</p>
+<ul>
+<li>
+<p>原理（简述）</p>
+</li>
+<li>
+<p>Keccak256的优势</p>
+</li>
+</ul>
+<p>生日攻击(Birthday Attack)</p>
+<ul>
+<li>概率分析（简单提及）</li>
+</ul>
+<h2 id="数字签名">数字签名</h2>
+<h3 id="数字签名是什么">数字签名是什么</h3>
+<blockquote>
+<p>数字签名解决了哪三个问题？</p>
+<p>为什么区块链必须用数字签名？</p>
+<p>如果没有数字签名，区块链会有什么问题？</p>
+<p>数字签名和密码有什么区别？</p>
+</blockquote>
+<h3 id="常见签名算法">常见签名算法</h3>
+<h4 id="ECDSA签名算法">ECDSA签名算法</h4>
+<blockquote>
+<p>理解ECDSA的基本原理和流程（不需要掌握数学推导）</p>
+<ol>
+<li>什么是私钥、公钥、签名？</li>
+<li>私钥和公钥有什么关系？能互相推导吗？</li>
+<li>签名的过程是什么？（用自己的话描述）</li>
+<li>验证签名的过程是什么？</li>
+<li>为什么签名无法伪造？</li>
+</ol>
+</blockquote>
+<h3 id="签名的应用（概念）">签名的应用（概念）</h3>
+<blockquote>
+<p>理解以太坊如何使用签名（概念层面，不涉及Solidity）</p>
+<p>以太坊交易是如何用签名保证安全的？</p>
+<p>以太坊地址和私钥有什么关系？</p>
+<p>除了转账交易，签名还能用来做什么？</p>
+<p>EIP-191和EIP-712是用来解决什么问题的？</p>
+<p>为什么说&quot;私钥 = 银行密码&quot;？</p>
+</blockquote>
+<h3 id="安全威胁-2">安全威胁</h3>
+<blockquote>
+<p>了解签名相关的主要安全风险，学会如何保护私钥</p>
+<p>私钥泄露有哪些常见方式？如何防护？</p>
+<p>什么是弱随机数攻击？为什么危险？</p>
+<p>什么是签名重放攻击？以太坊如何防御？</p>
+<p>什么是盲签名？如何避免被钓鱼？</p>
+<p>如果你的私钥泄露了，应该怎么办？</p>
+</blockquote>
+<h1>附录</h1>
+<h3 id="参考文章">参考文章</h3>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/10420199638">哈希函数-生日悖论</a></p>
+
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            Other Articles
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2026/01/08/WEB3/elliptic-curve-cryptography-key-management/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/Web3/">
+                    Web3
+                </a>
+            </div>
+            <h5>
+                <a href="/2026/01/08/WEB3/elliptic-curve-cryptography-key-management/" class="trm-anima-link">
+                    密码学基础-椭圆曲线与密钥管理
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>26/01/08</li>
+                <li>20:39</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> v8.1.1
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                Theme - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.7
+            </span>
+        </div>
+      
+
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        Article table of contents
+				<span id="post-toc-top">
+					TOP
+				</span>
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-2" title="哈希函数"><a rel="nofollow" class="trm-toc-link" href="#哈希函数"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">哈希函数</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="哈希是什么"><a rel="nofollow" class="trm-toc-link" href="#哈希是什么"><span class="trm-toc-number">1.1.</span> <span class="trm-toc-text">哈希是什么</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-4" title="哈希核心特性"><a rel="nofollow" class="trm-toc-link" href="#哈希核心特性"><span class="trm-toc-number">1.1.1.</span> <span class="trm-toc-text">哈希核心特性</span></a></li><li class="trm-toc-item trm-toc-level-4" title="哈希安全机制"><a rel="nofollow" class="trm-toc-link" href="#哈希安全机制"><span class="trm-toc-number">1.1.2.</span> <span class="trm-toc-text">哈希安全机制</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-3" title="哈希的应用"><a rel="nofollow" class="trm-toc-link" href="#哈希的应用"><span class="trm-toc-number">1.2.</span> <span class="trm-toc-text">哈希的应用</span></a></li><li class="trm-toc-item trm-toc-level-3" title="常用哈希算法(区块链)"><a rel="nofollow" class="trm-toc-link" href="#常用哈希算法-区块链"><span class="trm-toc-number">1.3.</span> <span class="trm-toc-text">常用哈希算法(区块链)</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-4" title="SHA-256（比特币使用）"><a rel="nofollow" class="trm-toc-link" href="#SHA-256（比特币使用）"><span class="trm-toc-number">1.3.1.</span> <span class="trm-toc-text">SHA-256（比特币使用）</span></a></li><li class="trm-toc-item trm-toc-level-4" title="Keccak256（以太坊使用）"><a rel="nofollow" class="trm-toc-link" href="#Keccak256（以太坊使用）"><span class="trm-toc-number">1.3.2.</span> <span class="trm-toc-text">Keccak256（以太坊使用）</span></a></li><li class="trm-toc-item trm-toc-level-4" title="MD5 (不安全，了解)"><a rel="nofollow" class="trm-toc-link" href="#MD5-不安全，了解"><span class="trm-toc-number">1.3.3.</span> <span class="trm-toc-text">MD5 (不安全，了解)</span></a></li><li class="trm-toc-item trm-toc-level-4" title="SHA-1 (已被破解)"><a rel="nofollow" class="trm-toc-link" href="#SHA-1-已被破解"><span class="trm-toc-number">1.3.4.</span> <span class="trm-toc-text">SHA-1 (已被破解)</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-3" title="安全威胁"><a rel="nofollow" class="trm-toc-link" href="#安全威胁"><span class="trm-toc-number">1.4.</span> <span class="trm-toc-text">安全威胁</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="数字签名"><a rel="nofollow" class="trm-toc-link" href="#数字签名"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">数字签名</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="数字签名是什么"><a rel="nofollow" class="trm-toc-link" href="#数字签名是什么"><span class="trm-toc-number">2.1.</span> <span class="trm-toc-text">数字签名是什么</span></a></li><li class="trm-toc-item trm-toc-level-3" title="常见签名算法"><a rel="nofollow" class="trm-toc-link" href="#常见签名算法"><span class="trm-toc-number">2.2.</span> <span class="trm-toc-text">常见签名算法</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-4" title="ECDSA签名算法"><a rel="nofollow" class="trm-toc-link" href="#ECDSA签名算法"><span class="trm-toc-number">2.2.1.</span> <span class="trm-toc-text">ECDSA签名算法</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-3" title="签名的应用（概念）"><a rel="nofollow" class="trm-toc-link" href="#签名的应用（概念）"><span class="trm-toc-number">2.3.</span> <span class="trm-toc-text">签名的应用（概念）</span></a></li><li class="trm-toc-item trm-toc-level-3" title="安全威胁"><a rel="nofollow" class="trm-toc-link" href="#安全威胁-2"><span class="trm-toc-number">2.4.</span> <span class="trm-toc-text">安全威胁</span></a></li></ol></li></ol></li><li class="trm-toc-item trm-toc-level-1" title="附录"><a class="trm-toc-link"><span class="trm-toc-number"></span> <span class="trm-toc-text">附录</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="参考文章"><a rel="nofollow" class="trm-toc-link" href="#参考文章"><span class="trm-toc-number">0.1.</span> <span class="trm-toc-text">参考文章</span></a></li></ol></li></ol>
+      </div>
+    </div>
+
+            
+<div class="trm-fixed-container">
+    
+        <div class="trm-fixed-btn post-toc-btn" data-title="Open toc">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn" data-title="Read Mode" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn hidden-md" data-title="Toggle between single-column and double-column" onclick="asyncFun.switchSingleColumn()">
+            <i class="iconfont fas fa-arrows-alt-h"></i>
+        </div>
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="Back To Top">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+
+    
+
+    <!-- 数学公式 -->
+    
+        
+<script src="https://unpkg.com/katex@latest/dist/katex.min.js" data-swup-reload-script></script>
+
+        
+            
+<script src="https://unpkg.com/katex@latest/dist/contrib/copy-tex.min.js" data-swup-reload-script></script>
+
+        
+        
+<script src="https://unpkg.com/katex@latest/dist/contrib/auto-render.min.js" data-swup-reload-script></script>
+
+        <script data-swup-reload-script>
+              window.renderMathInElement(document.body, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },
+                    { left: '\\[', right: '\\]', display: true },
+                ],
+                ...{},
+            })
+        </script>
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.7"></script>
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+</body>
+
+</html>

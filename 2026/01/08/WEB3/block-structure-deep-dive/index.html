@@ -7,25 +7,26 @@
 <meta name="full-screen" content="yes">
 <meta name="theme-color" content="#317EFB" />
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
-<meta name="description" content="单向散列函数 哈希函数 什么是哈希？ 哈希函数:  将任意数据(二进制字符串) 映射 为固定长度&quot;数字指纹&quot;的单向散列函数，可用于验证数据完整性和保护敏感信息。 使用过程:  输入(任意长度数据) &#x3D;&gt;【黑盒函数(H: ${0,1}^{*} &#x3D;&gt; {0,1}^{n}$)】 &#x3D;&gt; 固定长度摘要(不可逆推) 核心机制  单向性: 只有加密过程，无解密过程，无法反向">
+<meta name="description" content="区块 什么是区块 简化的 区块头结构 如下:  其中，Merkle root hash 保存 Block Body 中的内容不被篡改，所以只需要计算Block Header 就可保证区块内容不被篡改，计算哈希只针对于Block Header。 简化的 完整的区块 如下：   区块哈希 &#x3D; SHA256(所有上述内容)  区块链中每个区块生成的唯一标识符，类似于区块的身份证，唯一的不变的。 它通过对">
 <meta property="og:type" content="article">
-<meta property="og:title" content="区块链-加密技术-单向散列函数">
-<meta property="og:url" content="http://example.com/2025/12/26/l0-crypto-hash/index.html">
+<meta property="og:title" content="区块链-区块结构解析">
+<meta property="og:url" content="http://example.com/2026/01/08/WEB3/block-structure-deep-dive/index.html">
 <meta property="og:site_name" content="me7eorite">
-<meta property="og:description" content="单向散列函数 哈希函数 什么是哈希？ 哈希函数:  将任意数据(二进制字符串) 映射 为固定长度&quot;数字指纹&quot;的单向散列函数，可用于验证数据完整性和保护敏感信息。 使用过程:  输入(任意长度数据) &#x3D;&gt;【黑盒函数(H: ${0,1}^{*} &#x3D;&gt; {0,1}^{n}$)】 &#x3D;&gt; 固定长度摘要(不可逆推) 核心机制  单向性: 只有加密过程，无解密过程，无法反向">
+<meta property="og:description" content="区块 什么是区块 简化的 区块头结构 如下:  其中，Merkle root hash 保存 Block Body 中的内容不被篡改，所以只需要计算Block Header 就可保证区块内容不被篡改，计算哈希只针对于Block Header。 简化的 完整的区块 如下：   区块哈希 &#x3D; SHA256(所有上述内容)  区块链中每个区块生成的唯一标识符，类似于区块的身份证，唯一的不变的。 它通过对">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/img/404.jpg">
 <meta property="og:image" content="http://example.com/img/404.jpg">
 <meta property="og:image" content="http://example.com/img/404.jpg">
 <meta property="og:image" content="http://example.com/img/404.jpg">
-<meta property="article:published_time" content="2025-12-26T05:05:24.136Z">
-<meta property="article:modified_time" content="2026-01-07T03:43:13.525Z">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="article:published_time" content="2026-01-08T12:40:28.656Z">
+<meta property="article:modified_time" content="2026-01-08T14:59:12.018Z">
 <meta property="article:author" content="me7eorite">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/img/404.jpg">
 
 
-<title >区块链-加密技术-单向散列函数</title>
+<title >区块链-区块结构解析</title>
 
 <!-- Favicon -->
 
@@ -66,7 +67,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"me7eorite","root":"/","typed_text":null,"theme_version":"2.2.7","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/favicon.svg","icon16":"/img/favicon.svg","icon32":"/img/favicon.svg","apple_touch_icon":null,"webmanifest":null,"visibilitychange":true,"hidden":"/failure.ico","show_text":"(/≧▽≦/)Hey! Good again!","hide_text":"(●—●)Oh, crash!"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":false},"live_time":{"start_time":"","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"}};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2026-01-07 11:43:13"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2026-01-08 22:59:12"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.7" id="trm-switch-style">
@@ -219,7 +220,7 @@
                             NEWS LETTER
                         </div>
                         <h1 class="trm-mb-30 trm-hsmb-font">
-                            区块链-加密技术-单向散列函数
+                            区块链-区块结构解析
                         </h1>
 
                         
@@ -229,7 +230,7 @@
                                 </li>
                                 <li>
                                     <span>
-                                        2025
+                                        2026
                                     </span>
                                 </li>
                             </ul>
@@ -332,13 +333,13 @@
     <div class="col-sm-4">
         <div class="trm-card trm-label trm-label-light text-center">
             <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
-            12/26
+            01/08
         </div>
     </div>
     <div class="col-sm-4">
         <div class="trm-card trm-label trm-label-light text-center">
             <i class="iconfont far fa-clock trm-icon"></i><br>
-            13:05
+            20:40
         </div>
     </div>
     <div class="col-sm-4">
@@ -350,104 +351,8 @@
 </div>
 <div class="trm-card ">
     <article id="article-container" class="trm-publication">
-    <h1>单向散列函数</h1>
-<h2 id="哈希函数">哈希函数</h2>
-<h3 id="什么是哈希？">什么是哈希？</h3>
-<p><strong>哈希函数:</strong>  将任意数据(二进制字符串) <strong>映射</strong> 为固定长度&quot;数字指纹&quot;的单向散列函数，可用于验证数据完整性和保护敏感信息。<br>
-<strong>使用过程:</strong>  输入(任意长度数据) =&gt;【黑盒函数(H: ${0,1}^{*} =&gt; {0,1}^{n}$)】 =&gt; 固定长度摘要(不可逆推)</p>
-<h4 id="核心机制">核心机制</h4>
-<ol>
-<li><strong>单向性:</strong> 只有加密过程，无解密过程，无法反向计算。
-<ul>
-<li>例如，即使得到指纹图片也无法通过指纹映照出个人的基本信息。</li>
-</ul>
-</li>
-<li><strong>确定性:</strong> 相同输入即会得到相同输出，根据这点可进行重复验证。</li>
-<li><strong>高效性:</strong> 能够快速计算大文件或者长文本的哈希值。</li>
-<li><strong>固定长度输出:</strong> 不管文件与文本的大小，输出的固定字符长度都是相同的。</li>
-<li><strong>雪崩效应:</strong> 当输入发生轻微变化的时候，输出也会跟着变化。(1位改变 =&gt; 50% 变化)</li>
-</ol>
-<h4 id="安全机制">安全机制</h4>
-<ol>
-<li><strong>抗原像攻击(<code>PreImage Resistance</code>):</strong> 已知 <code>hash = &quot;a3b5c7d8.....&quot;</code> ，需找到任意 <code>input</code> 使得 <code>H(input) = hash</code>。
-<ul>
-<li>该攻击场景: 找到一个明文使其加密为已知 <code>hash</code>值，需通过暴力尝试 $2^n$ 个可能性输入。例如，在<code>SHA-256</code>的情况下，<code>n=256</code>。<strong>理论上可能，实际上无法实现。</strong></li>
-</ul>
-</li>
-<li><strong>第二原像攻击(<code>Second PreImage Resistance</code>):</strong> 已知 <code>xx.pdf</code> 经计算后的 <code>hash = &quot;x1y2z3...&quot;</code>，需伪造 <code>evil-xx.pdf</code> 使得 <code>H(evil-xx.pdf) = &quot;x1y2z3...&quot;</code>
-<ul>
-<li>该攻击场景: 已知明文与哈希值，找到另一个明文使其加密后哈希值相同，需经过 $2^n$ 次碰撞尝试。</li>
-</ul>
-</li>
-<li><strong>抗碰撞攻击(<code>Collision Resistance</code>):</strong> 找出任意两个不同的<code>x,x'</code>，使得<code>h(x)=h(x')</code>是困难的。
-<ul>
-<li><strong>生日攻击(<code>Birthday Attack</code>)</strong>: 在较少的尝试次数下,两组数据产生相同哈希值的概率可能比直觉预期要高。
-<ul>
-<li>简单来说，假设寻找第二原像攻击需要$2^n$次尝试而寻找任意碰撞据生日攻击的原理，只需要 $2^{\frac{n}{2}}$ 次尝试即可成功。</li>
-<li><strong>实际安全强度</strong>  = min(原像强度, 碰撞强度)<br>
-= min(n, $\frac{n}{2}$)<br>
-= $\frac{n}{2}$</li>
-<li>依据 <strong>木桶原理</strong>：安全性取决于最弱环节。</li>
-</ul>
-</li>
-<li>为了抵御生日攻击，现代哈希函数的输出长度通常至少为 256 比特（如 SHA-256），这样需要 $2^{128}$ 次尝试，这远超目前计算机的算力极限。即便使用量子计算机也需要$2^{\frac{256}{3}}$次尝试。</li>
-</ul>
-</li>
-</ol>
-<h3 id="为什么需要哈希？">为什么需要哈希？</h3>
-<p><strong>核心问题:在不可信的环境中，如何高效验证大量数据的完整性和真实性？</strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">应用场景</th>
-<th style="text-align:left">解决的问题</th>
-<th style="text-align:left">价值体现</th>
-<th style="text-align:center">使用算法</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">文件传输校验</td>
-<td style="text-align:left">网络传输中的数据损坏/篡改</td>
-<td style="text-align:left">用64个字符验证10GB等大文件</td>
-<td style="text-align:center">SHA-256</td>
-</tr>
-<tr>
-<td style="text-align:left">密码存储</td>
-<td style="text-align:left">数据库泄漏导致密码暴露</td>
-<td style="text-align:left">不存储明文，无法反推</td>
-<td style="text-align:center">bcrypt/Argon2</td>
-</tr>
-<tr>
-<td style="text-align:left">数字签名</td>
-<td style="text-align:left">文件来源和完整性证明</td>
-<td style="text-align:left">防止伪造和抵赖</td>
-<td style="text-align:center">SHA-256</td>
-</tr>
-<tr>
-<td style="text-align:left">区块链</td>
-<td style="text-align:left">分布式账本防篡改</td>
-<td style="text-align:left">任何修改导致链断裂</td>
-<td style="text-align:center">SHA-256</td>
-</tr>
-<tr>
-<td style="text-align:left">版本控制</td>
-<td style="text-align:left">代码变更追踪</td>
-<td style="text-align:left">每次提交唯一标识</td>
-<td style="text-align:center">SHA -&gt; SHA-256</td>
-</tr>
-<tr>
-<td style="text-align:left">数字去重</td>
-<td style="text-align:left">云存储空间浪费</td>
-<td style="text-align:left">快速识别重复文件</td>
-<td style="text-align:center">MD5/SHA-256</td>
-</tr>
-</tbody>
-</table>
-<p><strong>哈希算法的价值</strong> = 效率提升 × 安全保障</p>
-<h2 id="区块链中的哈希应用">区块链中的哈希应用</h2>
-<h3 id="区块">区块</h3>
-<h4 id="什么是区块">什么是区块</h4>
+    <h1>区块</h1>
+<h2 id="什么是区块">什么是区块</h2>
 <p>简化的 <strong>区块头结构</strong> 如下:</p>
 <p><img src="https://cdn.jsdelivr.net/gh/me7eorite/_ImageCDN@main/img/a1e7066ee1513f206d77012ec2d4bff3.png" alt="区块头"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 <p>其中，<code>Merkle root hash</code> 保存 <code>Block Body</code> 中的内容不被篡改，所以只需要计算<code>Block Header</code> 就可保证区块内容不被篡改，计算哈希只针对于<code>Block Header</code>。</p>
@@ -466,6 +371,8 @@
 <p><img src="https://cdn.jsdelivr.net/gh/me7eorite/_ImageCDN@main/img/image-20260107110546781.png" alt="image-20260107110546781"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 <p><strong>区块链:</strong> 一个个区块组成的链条，每个区块通过 <code>previous_hash</code> 知道它的前一个区块，但不知道后续的，这是单向链表的结构。</p>
 <p><strong>创世区块(<code>genesis block</code>)</strong>：人工创建，不是挖矿产生的，没有前一个区块，<code>previous_hash = &quot;0&quot;</code> 或 全为<code>0</code>。</p>
+<p>以下以<code>blockchain.com</code>作为示例：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/me7eorite/_ImageCDN@main/img/5b9507bb88489a792811bb8de6087a3f.png" alt="5b9507bb88489a792811bb8de6087a3f"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 <ul>
 <li>传统链表用内存地址作为指针，区块链以哈希值作为指针。优势在于：
 <ul>
@@ -474,47 +381,111 @@
 </li>
 </ul>
 <h4 id="为什么无法篡改">为什么无法篡改</h4>
-<p><img src="https://cdn.jsdelivr.net/gh/me7eorite/_ImageCDN@main/img/image-20260107113927054.png" alt="image-20260107113927054"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 <p>由于，每个区块记录前一个区块的哈希，形成链条；修改任何历史区块都会导致链条断裂，根据哈希的<strong>雪崩效应</strong>，会被立即被发现。</p>
-<h3 id="工作量证明PoW（核心机制）">工作量证明PoW（核心机制）</h3>
-<blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/me7eorite/_ImageCDN@main/img/image-20260107113927054.png" alt="image-20260107113927054"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="挖矿与工作量证明">挖矿与工作量证明</h3>
+<h4 id="挖矿本质">挖矿本质</h4>
+<p><strong>挖矿:</strong>  计算数学问题，寻找一个特殊的<code>Nonce</code>，使得区块哈希满足难度要求。</p>
+<p><strong>Nonce</strong>: 作为一个随机数参与运算，其范围为0-32位的整数(0-4294967295)，区块头中唯一可以随意修改的字段，每次挖矿可尝试改变一次。</p>
+<p>由于给定区块完整的区块内容，需要找到一个哈希值 &lt; 目标值，因为哈希函数是单向的，无法反推，唯一的方式只能通过暴力尝试。通过不断的改变Nonce计算哈希直到找到符合条件的。</p>
+<h4 id="工作量证明">工作量证明</h4>
+<p><strong>工作量证明(POW):</strong> 通过大量的尝试得到符合要求的结果，这个过程就是工作量证明。（<code>difficult to solve ,but easy to find</code> ）</p>
+<p>在上面提到 计算出的哈希值 需要小于 目标值，这个目标是一个256位的数值，区块哈希必须要小于这个值才能有效。</p>
+<p><strong>难度的表示方式</strong></p>
+<p>表示1：Bits（紧凑格式）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">存储在区块头中：32位</span><br><span class="line"></span><br><span class="line">格式：0xAABBCCDD</span><br><span class="line">      ↑↑ ↑↑↑↑↑↑</span><br><span class="line">     指数 尾数</span><br><span class="line"></span><br><span class="line">例如：0x1d00ffff</span><br></pre></td></tr></table></figure>
+<p>表示2：Difficulty（难度值）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">相对于最低难度的倍数</span><br><span class="line"></span><br><span class="line">最低难度 = 1.0（创世区块）</span><br><span class="line">当前难度 = 60,000,000,000,000+（60万亿+）</span><br><span class="line"></span><br><span class="line">难度越高 = 挖矿越难</span><br></pre></td></tr></table></figure>
+<p>Bits 转 Target 的公式：Bits格式：0xAABBCCDD 指数 = AA 尾数 = BBCCDD Target = 尾数 × 256^(指数 - 3)</p>
+<h4 id="挖矿过程">挖矿过程</h4>
+<h3 id="Merkle树">Merkle树</h3>
+<h4 id="Merkle树结构">Merkle树结构</h4>
+<p><strong>Merkle Tree 是什么</strong></p>
 <ul>
-<li>挖矿本质：寻找Nonce</li>
-<li>难度目标</li>
-<li>比特币挖矿演示</li>
-<li>代码示例：PoW实现</li>
+<li>叶子节点 = <code>hash(tx)</code></li>
+<li>非叶子节点 = <code>hash(left || right)</code></li>
+<li>根节点 = Merkle Root</li>
 </ul>
-</blockquote>
-<h3 id="Merkle树（高效验证）">Merkle树（高效验证）</h3>
-<blockquote>
+<p><strong>为什么不用一个 hash 就行</strong></p>
 <ul>
-<li>Merkle树结构</li>
-<li>如何验证交易</li>
-<li>SPV轻节点</li>
-<li>代码示例：Merkle树构建</li>
+<li>大量交易如何高效校验</li>
+<li>防篡改 vs 局部验证</li>
 </ul>
-</blockquote>
-<h3 id="地址生成（实用）">地址生成（实用）</h3>
-<blockquote>
+<p><strong>Merkle Tree 的特性</strong></p>
 <ul>
-<li>比特币地址：Hash160</li>
-<li>以太坊地址：Keccak256</li>
-<li>代码示例：生成地址</li>
+<li>防篡改性</li>
+<li>对数级验证复杂度 <code>O(log n)</code></li>
+<li>任意叶子变化 → 根变化</li>
 </ul>
-</blockquote>
-<h2 id="常见哈希算法">常见哈希算法</h2>
-<h3 id="MD5-不安全，了解"><code>MD5</code> (不安全，了解)</h3>
-<h3 id="SHA-1-已被破解"><code>SHA-1</code> (已被破解)</h3>
-<h3 id="SHA-256（比特币使用）"><code>SHA-256</code>（比特币使用）</h3>
-<h3 id="Keccak256（以太坊使用）"><code>Keccak256</code>（以太坊使用）</h3>
-<h3 id="算法对比与选择">算法对比与选择</h3>
-<h2 id="代码实现">代码实现</h2>
-<h3 id="Python-实现-SHA-256"><code>Python</code> 实现 <code>SHA-256</code></h3>
-<h3 id="实现简单区块链">实现简单区块链</h3>
-<h3 id="实现-Merkle-树">实现 <code>Merkle</code> 树</h3>
-<h2 id="附录">附录</h2>
-<h3 id="参考文章">参考文章</h3>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/10420199638">哈希函数-生日悖论</a></p>
+<p><strong>常见变体（了解即可）</strong></p>
+<ul>
+<li>Binary Merkle Tree</li>
+<li>Merkle Patricia Trie（以太坊用）</li>
+</ul>
+<h4 id="如何验证交易-Merkle-Proof">如何验证交易(<code>Merkle Proof</code>)</h4>
+<p><strong>什么是 Merkle Proof</strong></p>
+<ul>
+<li>又叫 Merkle Path / Authentication Path</li>
+<li>包含：
+<ul>
+<li>交易 hash</li>
+<li>一路上的兄弟节点 hash</li>
+</ul>
+</li>
+</ul>
+<p><strong>验证一笔交易是否在区块中</strong></p>
+<ul>
+<li>已知：
+<ul>
+<li>tx hash</li>
+<li>Merkle proof</li>
+<li>block header 中的 Merkle root</li>
+</ul>
+</li>
+<li>本地计算是否能还原 root</li>
+</ul>
+<p><strong>复杂度分析</strong></p>
+<ul>
+<li>空间：<code>log2(n)</code> 个 hash</li>
+<li>时间：<code>log2(n)</code> 次 hash</li>
+</ul>
+<p><strong>实际例子（非常重要）</strong></p>
+<ul>
+<li>用 4 / 8 笔交易手算一棵树</li>
+</ul>
+<h4 id="SPV轻节点">SPV轻节点</h4>
+<ol>
+<li><strong>什么是 SPV（Simplified Payment Verification）</strong>
+<ul>
+<li>不下载完整区块</li>
+<li>只保存 block header（80 bytes）</li>
+</ul>
+</li>
+<li><strong>SPV 轻节点如何验证交易</strong>
+<ul>
+<li>下载区块头链</li>
+<li>获取 Merkle Proof</li>
+<li>验证 Merkle Root</li>
+</ul>
+</li>
+<li><strong>SPV 的信任假设</strong>
+<ul>
+<li>信任最长链</li>
+<li>不验证所有交易合法性</li>
+</ul>
+</li>
+<li><strong>SPV 的安全边界</strong>
+<ul>
+<li>不能防止：
+<ul>
+<li>双花的复杂攻击</li>
+<li>恶意矿工协同</li>
+</ul>
+</li>
+<li>为什么轻节点 ≠ 全节点</li>
+</ul>
+</li>
+</ol>
 
 </article>
     
@@ -530,6 +501,37 @@
         </h5>
     </div>
     
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2026/01/08/WEB3/elliptic-curve-cryptography-key-management/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/Web3/">
+                    Web3
+                </a>
+            </div>
+            <h5>
+                <a href="/2026/01/08/WEB3/elliptic-curve-cryptography-key-management/" class="trm-anima-link">
+                    密码学基础-椭圆曲线与密钥管理
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>26/01/08</li>
+                <li>20:39</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
     
 </div>
 
@@ -583,7 +585,7 @@
 				</span>
       </div>
       <div class="trm-post-toc-content">
-        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-1" title="单向散列函数"><a class="trm-toc-link"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">单向散列函数</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-2" title="哈希函数"><a rel="nofollow" class="trm-toc-link" href="#哈希函数"><span class="trm-toc-number">1.1.</span> <span class="trm-toc-text">哈希函数</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="什么是哈希？"><a rel="nofollow" class="trm-toc-link" href="#什么是哈希？"><span class="trm-toc-number">1.1.1.</span> <span class="trm-toc-text">什么是哈希？</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-4" title="核心机制"><a rel="nofollow" class="trm-toc-link" href="#核心机制"><span class="trm-toc-number">1.1.1.1.</span> <span class="trm-toc-text">核心机制</span></a></li><li class="trm-toc-item trm-toc-level-4" title="安全机制"><a rel="nofollow" class="trm-toc-link" href="#安全机制"><span class="trm-toc-number">1.1.1.2.</span> <span class="trm-toc-text">安全机制</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-3" title="为什么需要哈希？"><a rel="nofollow" class="trm-toc-link" href="#为什么需要哈希？"><span class="trm-toc-number">1.1.2.</span> <span class="trm-toc-text">为什么需要哈希？</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="区块链中的哈希应用"><a rel="nofollow" class="trm-toc-link" href="#区块链中的哈希应用"><span class="trm-toc-number">1.2.</span> <span class="trm-toc-text">区块链中的哈希应用</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="区块"><a rel="nofollow" class="trm-toc-link" href="#区块"><span class="trm-toc-number">1.2.1.</span> <span class="trm-toc-text">区块</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-4" title="什么是区块"><a rel="nofollow" class="trm-toc-link" href="#什么是区块"><span class="trm-toc-number">1.2.1.1.</span> <span class="trm-toc-text">什么是区块</span></a></li><li class="trm-toc-item trm-toc-level-4" title="区块如何链接"><a rel="nofollow" class="trm-toc-link" href="#区块如何链接"><span class="trm-toc-number">1.2.1.2.</span> <span class="trm-toc-text">区块如何链接</span></a></li><li class="trm-toc-item trm-toc-level-4" title="为什么无法篡改"><a rel="nofollow" class="trm-toc-link" href="#为什么无法篡改"><span class="trm-toc-number">1.2.1.3.</span> <span class="trm-toc-text">为什么无法篡改</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-3" title="工作量证明PoW（核心机制）"><a rel="nofollow" class="trm-toc-link" href="#工作量证明PoW（核心机制）"><span class="trm-toc-number">1.2.2.</span> <span class="trm-toc-text">工作量证明PoW（核心机制）</span></a></li><li class="trm-toc-item trm-toc-level-3" title="Merkle树（高效验证）"><a rel="nofollow" class="trm-toc-link" href="#Merkle树（高效验证）"><span class="trm-toc-number">1.2.3.</span> <span class="trm-toc-text">Merkle树（高效验证）</span></a></li><li class="trm-toc-item trm-toc-level-3" title="地址生成（实用）"><a rel="nofollow" class="trm-toc-link" href="#地址生成（实用）"><span class="trm-toc-number">1.2.4.</span> <span class="trm-toc-text">地址生成（实用）</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="常见哈希算法"><a rel="nofollow" class="trm-toc-link" href="#常见哈希算法"><span class="trm-toc-number">1.3.</span> <span class="trm-toc-text">常见哈希算法</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="MD5 (不安全，了解)"><a rel="nofollow" class="trm-toc-link" href="#MD5-不安全，了解"><span class="trm-toc-number">1.3.1.</span> <span class="trm-toc-text">MD5 (不安全，了解)</span></a></li><li class="trm-toc-item trm-toc-level-3" title="SHA-1 (已被破解)"><a rel="nofollow" class="trm-toc-link" href="#SHA-1-已被破解"><span class="trm-toc-number">1.3.2.</span> <span class="trm-toc-text">SHA-1 (已被破解)</span></a></li><li class="trm-toc-item trm-toc-level-3" title="SHA-256（比特币使用）"><a rel="nofollow" class="trm-toc-link" href="#SHA-256（比特币使用）"><span class="trm-toc-number">1.3.3.</span> <span class="trm-toc-text">SHA-256（比特币使用）</span></a></li><li class="trm-toc-item trm-toc-level-3" title="Keccak256（以太坊使用）"><a rel="nofollow" class="trm-toc-link" href="#Keccak256（以太坊使用）"><span class="trm-toc-number">1.3.4.</span> <span class="trm-toc-text">Keccak256（以太坊使用）</span></a></li><li class="trm-toc-item trm-toc-level-3" title="算法对比与选择"><a rel="nofollow" class="trm-toc-link" href="#算法对比与选择"><span class="trm-toc-number">1.3.5.</span> <span class="trm-toc-text">算法对比与选择</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="代码实现"><a rel="nofollow" class="trm-toc-link" href="#代码实现"><span class="trm-toc-number">1.4.</span> <span class="trm-toc-text">代码实现</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="Python 实现 SHA-256"><a rel="nofollow" class="trm-toc-link" href="#Python-实现-SHA-256"><span class="trm-toc-number">1.4.1.</span> <span class="trm-toc-text">Python 实现 SHA-256</span></a></li><li class="trm-toc-item trm-toc-level-3" title="实现简单区块链"><a rel="nofollow" class="trm-toc-link" href="#实现简单区块链"><span class="trm-toc-number">1.4.2.</span> <span class="trm-toc-text">实现简单区块链</span></a></li><li class="trm-toc-item trm-toc-level-3" title="实现 Merkle 树"><a rel="nofollow" class="trm-toc-link" href="#实现-Merkle-树"><span class="trm-toc-number">1.4.3.</span> <span class="trm-toc-text">实现 Merkle 树</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="附录"><a rel="nofollow" class="trm-toc-link" href="#附录"><span class="trm-toc-number">1.5.</span> <span class="trm-toc-text">附录</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="参考文章"><a rel="nofollow" class="trm-toc-link" href="#参考文章"><span class="trm-toc-number">1.5.1.</span> <span class="trm-toc-text">参考文章</span></a></li></ol></li></ol></li></ol>
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-1" title="区块"><a class="trm-toc-link"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">区块</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-2" title="什么是区块"><a rel="nofollow" class="trm-toc-link" href="#什么是区块"><span class="trm-toc-number">1.1.</span> <span class="trm-toc-text">什么是区块</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-4" title="区块如何链接"><a rel="nofollow" class="trm-toc-link" href="#区块如何链接"><span class="trm-toc-number">1.1.0.1.</span> <span class="trm-toc-text">区块如何链接</span></a></li><li class="trm-toc-item trm-toc-level-4" title="为什么无法篡改"><a rel="nofollow" class="trm-toc-link" href="#为什么无法篡改"><span class="trm-toc-number">1.1.0.2.</span> <span class="trm-toc-text">为什么无法篡改</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-3" title="挖矿与工作量证明"><a rel="nofollow" class="trm-toc-link" href="#挖矿与工作量证明"><span class="trm-toc-number">1.1.1.</span> <span class="trm-toc-text">挖矿与工作量证明</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-4" title="挖矿本质"><a rel="nofollow" class="trm-toc-link" href="#挖矿本质"><span class="trm-toc-number">1.1.1.1.</span> <span class="trm-toc-text">挖矿本质</span></a></li><li class="trm-toc-item trm-toc-level-4" title="工作量证明"><a rel="nofollow" class="trm-toc-link" href="#工作量证明"><span class="trm-toc-number">1.1.1.2.</span> <span class="trm-toc-text">工作量证明</span></a></li><li class="trm-toc-item trm-toc-level-4" title="挖矿过程"><a rel="nofollow" class="trm-toc-link" href="#挖矿过程"><span class="trm-toc-number">1.1.1.3.</span> <span class="trm-toc-text">挖矿过程</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-3" title="Merkle树"><a rel="nofollow" class="trm-toc-link" href="#Merkle树"><span class="trm-toc-number">1.1.2.</span> <span class="trm-toc-text">Merkle树</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-4" title="Merkle树结构"><a rel="nofollow" class="trm-toc-link" href="#Merkle树结构"><span class="trm-toc-number">1.1.2.1.</span> <span class="trm-toc-text">Merkle树结构</span></a></li><li class="trm-toc-item trm-toc-level-4" title="如何验证交易(Merkle Proof)"><a rel="nofollow" class="trm-toc-link" href="#如何验证交易-Merkle-Proof"><span class="trm-toc-number">1.1.2.2.</span> <span class="trm-toc-text">如何验证交易(Merkle Proof)</span></a></li><li class="trm-toc-item trm-toc-level-4" title="SPV轻节点"><a rel="nofollow" class="trm-toc-link" href="#SPV轻节点"><span class="trm-toc-number">1.1.2.3.</span> <span class="trm-toc-text">SPV轻节点</span></a></li></ol></li></ol></li></ol></li></ol>
       </div>
     </div>
 
