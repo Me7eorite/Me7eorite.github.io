@@ -1,7 +1,32 @@
 import { defineConfig } from 'vitepress'
+import { generateSidebar } from 'vitepress-sidebar'
 
 // 导入主题的配置
 import { blogTheme } from './blog-theme'
+
+type SidebarNode = {
+  link?: string
+  items?: SidebarNode[]
+  [key: string]: unknown
+}
+
+function withLinkPrefix(items: SidebarNode[], prefix: string): SidebarNode[] {
+  const normalizedPrefix = prefix.endsWith('/') ? prefix : `${prefix}/`
+
+  return items.map((item) => {
+    const next: SidebarNode = { ...item }
+
+    if (typeof next.link === 'string' && !next.link.startsWith('/')) {
+      next.link = `${normalizedPrefix}${next.link}`.replace(/\/{2,}/g, '/')
+    }
+
+    if (Array.isArray(next.items)) {
+      next.items = withLinkPrefix(next.items, normalizedPrefix)
+    }
+
+    return next
+  })
+}
 
 // Vitepress 默认配置
 // 详见文档：https://vitepress.dev/reference/site-config
@@ -16,8 +41,24 @@ export default defineConfig({
     ['link', { rel: 'icon', href: '/favicon.ico' }]
   ],
   themeConfig: {
+    sidebar: {
+      '/Java-Learning/': withLinkPrefix(
+        generateSidebar({
+          documentRootPath: 'docs',
+          scanStartPath: 'Java-Learning',
+          useTitleFromFileHeading: true,
+          collapsed: true,
+        }) as SidebarNode[],
+        '/Java-Learning/'
+      ),
+      '/AI-Learning/': generateSidebar({
+        documentRootPath: 'docs',
+        collapsed: true,
+        scanStartPath: 'AI-Learning'
+      })
+    },
     outline: {
-      level: [2, 3],
+      level: [1, 6],
       label: '本页目录'
     },
     returnToTopLabel: '回到顶部',
@@ -29,11 +70,10 @@ export default defineConfig({
 
     nav: [
       { text: '首页', link: '/' },
-      { text: '🤖 AI', link: '/ai/' },
-      { text: '☕ Java', link: '/java/' },
-      { text: '⛓️ Web3', link: '/web3/' },
-      { text: '☁️ 云原生', link: '/cloud/' },
-      { text: '关于', link: '/about' }
+      { text: '🤖 AI', link: '/AI-Learning/' },
+      { text: '☕ Java', link: '/Java-Learning/' },
+      { text: '⛓️ Web3', link: '/Web3-Learning/' },
+      { text: '☁️ 云原生', link: '/Cloud-Learning/' },
     ],
 
     socialLinks: [

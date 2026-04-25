@@ -1,0 +1,378 @@
+/* ===============================
+   M7 Sidebar - Rainbow Folder Style (v3)
+   参考 Zen 主题：同组同色 / 紧凑堆叠 / 层级继承
+================================= */
+
+/* 引入 JetBrains Mono 字体 */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+/* 侧边栏整体使用 JetBrains Mono */
+.VPSidebar,
+.VPSidebar .text,
+.VPSidebar .VPSidebarItem .text,
+.VPSidebar .VPLink {
+  font-family: 'JetBrains Mono', 'LXGW WenKai Mono', 'PingFang SC', 'Microsoft YaHei', monospace !important;
+}
+
+.VPSidebar {
+  /* 彩虹配色 */
+  --m7-fold-0: #e74c3c;
+  --m7-fold-1: #f39c12;
+  --m7-fold-2: #f1c40f;
+  --m7-fold-3: #2ecc71;
+  --m7-fold-4: #1abc9c;
+  --m7-fold-5: #3498db;
+  --m7-fold-6: #546de5;
+  --m7-fold-7: #8e44ad;
+  --m7-fold-8: #e056fd;
+  --m7-fold-9: #fd79a8;
+
+  --m7-tab-color: var(--m7-fold-0);
+  --m7-card-bg: var(--vp-c-bg-soft);
+  --m7-card-border: var(--vp-c-divider);
+  --m7-text: var(--vp-c-text-1);
+  --m7-text-muted: var(--vp-c-text-2);
+}
+
+/* ============= 整体留白：Logo 与卡片左对齐 ============= */
+.VPSidebar {
+  padding-left: 16px !important;
+  padding-right: 8px !important;
+}
+
+.VPSidebar .curtain { display: none; }
+
+/* nav 容器内部不加 padding，让 Logo 和卡片用同一基准对齐 */
+.VPSidebar .nav {
+  padding: 8px 0 24px 0 !important;
+}
+
+/* Logo 区域去掉额外缩进，与卡片左对齐 */
+.VPSidebar .VPSidebarNav,
+.VPSidebar > .group:first-child,
+.VPSidebar .VPNavBarTitle,
+.VPSidebar > .group:first-child .VPSidebarItem {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+/* Logo 图片本身的容器对齐 */
+.VPSidebar .VPImage,
+.VPSidebar .title,
+.VPSidebar .VPNavBarTitle .title {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+/* ============= 导航栏 Logo 对齐：与侧边栏卡片左边缘一致 ============= */
+/* header 内的 Logo 容器：左边距 16px，与侧边栏整体 padding-left 对齐 */
+.VPNav .VPNavBarTitle {
+  padding-left: 16px !important;
+}
+
+.VPNav .VPNavBar .title,
+.VPNav .VPNavBar .VPImage,
+.VPNav .VPNavBar .VPNavBarTitle > div,
+.VPNav .VPNavBar .VPNavBarTitle > div > div {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+/* sidebar-nav-before slot 容器对齐 */
+.VPSidebar .VPSidebarNav > *:first-child,
+.VPSidebar .nav > *:first-child {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+/* 分组卡片占满可用宽度 */
+.VPSidebar .group,
+.VPSidebar .VPSidebarItem {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ============= 同组同色：彩虹色只作用在顶级 group 上 ============= */
+.VPSidebar .group:nth-child(10n+1) { --m7-tab-color: var(--m7-fold-0); }
+.VPSidebar .group:nth-child(10n+2) { --m7-tab-color: var(--m7-fold-1); }
+.VPSidebar .group:nth-child(10n+3) { --m7-tab-color: var(--m7-fold-2); }
+.VPSidebar .group:nth-child(10n+4) { --m7-tab-color: var(--m7-fold-3); }
+.VPSidebar .group:nth-child(10n+5) { --m7-tab-color: var(--m7-fold-4); }
+.VPSidebar .group:nth-child(10n+6) { --m7-tab-color: var(--m7-fold-5); }
+.VPSidebar .group:nth-child(10n+7) { --m7-tab-color: var(--m7-fold-6); }
+.VPSidebar .group:nth-child(10n+8) { --m7-tab-color: var(--m7-fold-7); }
+.VPSidebar .group:nth-child(10n+9) { --m7-tab-color: var(--m7-fold-8); }
+.VPSidebar .group:nth-child(10n+10) { --m7-tab-color: var(--m7-fold-9); }
+
+/* ============= 分组容器（section）：精确压制间距 ============= */
+/* 直接定位 nav 下的 section */
+.VPSidebar .nav section,
+.VPSidebar nav section,
+.VPSidebar section.group,
+.VPSidebar .group {
+  padding: 0 !important;
+  margin: 0 0 4px 0 !important;
+  border: none !important;
+}
+
+/* section 之间不要分割线和间距 */
+.VPSidebar section + section,
+.VPSidebar .group + .group {
+  border-top: none !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* 去除伪元素分隔线 */
+.VPSidebar .group::before,
+.VPSidebar .group::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* section 内部第一个/最后一个子元素去掉额外间距 */
+.VPSidebar section > *:first-child,
+.VPSidebar .group > *:first-child {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.VPSidebar section > *:last-child,
+.VPSidebar .group > *:last-child {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* section 内的 .items 容器（展开的子项）紧贴父项 */
+.VPSidebar section .items,
+.VPSidebar .group .items {
+  margin: 2px 0 4px 14px !important;
+  padding: 0 0 0 12px !important;
+}
+
+/* 去除顶级 item 之间的分隔 */
+.VPSidebar .VPSidebarItem.level-0 {
+  border-top: none !important;
+  padding-top: 0 !important;
+}
+
+/* ============= 主体块：左竖条 + 轻背景，降饱和 ============= */
+.VPSidebar .VPSidebarItem > .item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 36px;
+  margin: 2px 0;
+  padding: 0 12px;
+  border: none;
+  border-left: 3px solid var(--m7-tab-color);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--m7-tab-color) 6%, transparent);
+  transition: background 0.15s ease;
+}
+
+/* hover：背景加深 */
+.VPSidebar .VPSidebarItem > .item:hover {
+  background: color-mix(in srgb, var(--m7-tab-color) 12%, transparent);
+}
+
+/* 标题前缀小圆点 */
+.VPSidebar .VPSidebarItem > .item .text::before {
+  content: "•";
+  padding-right: 6px;
+  font-size: 10px;
+  color: var(--vp-c-text-3);
+  opacity: 0.6;
+}
+
+/* ============= 顶级 item 背景加深 ============= */
+.VPSidebar .VPSidebarItem.level-0 > .item {
+  background: color-mix(in srgb, var(--m7-tab-color) 10%, transparent) !important;
+}
+
+.VPSidebar .VPSidebarItem.level-0 > .item:hover {
+  background: color-mix(in srgb, var(--m7-tab-color) 16%, transparent) !important;
+}
+
+/* ============= 顶级文字：浅色加深到 35%，字号 16px ============= */
+.VPSidebar .VPSidebarItem.level-0 > .item .text {
+  font-size: 16px;
+  font-weight: 700;
+  color: color-mix(in hsl, var(--m7-tab-color), black 35%);
+}
+
+.dark .VPSidebar .VPSidebarItem.level-0 > .item .text {
+  color: color-mix(in hsl, var(--m7-tab-color), white 35%);
+}
+
+/* ============= 子级：背景加深、间距紧凑 ============= */
+.VPSidebar .VPSidebarItem.level-1,
+.VPSidebar .VPSidebarItem.level-2,
+.VPSidebar .VPSidebarItem.level-3 {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.VPSidebar .VPSidebarItem.level-1 > .item,
+.VPSidebar .VPSidebarItem.level-2 > .item,
+.VPSidebar .VPSidebarItem.level-3 > .item,
+.VPSidebar .VPSidebarItem.level-4 > .item {
+  min-height: 32px;
+  margin-top: 2px !important;
+  margin-bottom: 2px !important;
+  border-left-width: 2px;
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--m7-tab-color) 7%, transparent) !important;
+}
+
+.VPSidebar .VPSidebarItem.level-1 > .item:hover,
+.VPSidebar .VPSidebarItem.level-2 > .item:hover,
+.VPSidebar .VPSidebarItem.level-3 > .item:hover,
+.VPSidebar .VPSidebarItem.level-4 > .item:hover {
+  background: color-mix(in srgb, var(--m7-tab-color) 12%, transparent) !important;
+}
+
+/* ============= 二级目录字体强化 ============= */
+.VPSidebar .VPSidebarItem.level-1 > .item .text {
+  font-size: 14.5px !important;
+  font-weight: 600 !important;
+  color: var(--vp-c-text-1) !important;
+}
+
+/* 三级目录稍小，但清晰 */
+.VPSidebar .VPSidebarItem.level-2 > .item .text {
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  color: var(--vp-c-text-1) !important;
+}
+
+/* 四级及以下保持更小 */
+.VPSidebar .VPSidebarItem.level-3 > .item .text,
+.VPSidebar .VPSidebarItem.level-4 > .item .text {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: var(--vp-c-text-2) !important;
+}
+
+/* ============= 引导虚线：只保留一条，透明度 25% ============= */
+.VPSidebar .items {
+  border-left: 1px dashed color-mix(in srgb, var(--m7-tab-color) 25%, transparent);
+}
+
+/* 子级容器不再额外加虚线 */
+.VPSidebar .items .items {
+  border-left: none;
+  margin-left: 8px;
+  padding-left: 6px;
+}
+
+/* ============= 激活态：背景 14%，完全继承分组彩虹色 ============= */
+/* 覆盖所有可能产生蓝色的选择器 */
+.VPSidebar .VPLink.link.active,
+.VPSidebar .VPLink.link.active > .item,
+.VPSidebar .item.is-active,
+.VPSidebar .VPSidebarItem.is-active > .item,
+.VPSidebar a.active,
+.VPSidebar a.active > .item {
+  background: color-mix(in srgb, var(--m7-tab-color) 14%, transparent) !important;
+  border-left-color: var(--m7-tab-color);
+  border-left-width: 3px; /* 保持一致的粗细 */
+}
+
+/* 子级激活态 */
+.VPSidebar .VPSidebarItem.level-1 > .item.is-active,
+.VPSidebar .VPSidebarItem.level-2 > .item.is-active,
+.VPSidebar .VPSidebarItem.level-3 > .item.is-active,
+.VPSidebar .level-1 .VPLink.link.active > .item,
+.VPSidebar .level-2 .VPLink.link.active > .item,
+.VPSidebar .level-3 .VPLink.link.active > .item {
+  border-left-width: 2px; /* 子级保持 2px */
+}
+
+/* 激活态文字颜色 */
+.VPSidebar .VPLink.link.active .text,
+.VPSidebar .item.is-active .text,
+.VPSidebar .VPSidebarItem.is-active > .item .text,
+.VPSidebar a.active .text {
+  color: var(--m7-tab-color);
+  font-weight: 600;
+}
+
+/* 强制覆盖 VitePress 默认蓝色 */
+.VPSidebar .VPLink.link.active,
+.VPSidebar .VPLink.link.active > .item,
+.VPSidebar .item.is-active,
+.VPSidebar .VPSidebarItem.is-active > .item,
+.VPSidebar a.active,
+.VPSidebar a.active > .item,
+.VPSidebar .VPLink.link.active .text,
+.VPSidebar .item.is-active .text,
+.VPSidebar .VPSidebarItem.is-active > .item .text,
+.VPSidebar a.active .text {
+  --vp-c-brand-1: var(--m7-tab-color);
+  color: var(--m7-tab-color);
+}
+
+/* ============= 链接重置 ============= */
+.VPSidebar .VPLink.link {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 36px;
+  padding: 0;
+  border-radius: inherit;
+  background: transparent;
+}
+
+/* ============= 展开箭头 ============= */
+.VPSidebar .caret {
+  opacity: 0.5;
+  transition: transform 0.2s ease;
+}
+.VPSidebar .collapsed .caret {
+  transform: rotate(-90deg);
+}
+
+/* ============= 暗色模式：背景加深 ============= */
+.dark .VPSidebar {
+  --m7-card-bg: rgba(255,255,255,0.03);
+  --m7-card-border: rgba(255,255,255,0.08);
+}
+
+/* 暗色模式顶级 item 背景 */
+.dark .VPSidebar .VPSidebarItem.level-0 > .item {
+  background: color-mix(in srgb, var(--m7-tab-color) 14%, transparent) !important;
+}
+
+.dark .VPSidebar .VPSidebarItem.level-0 > .item:hover {
+  background: color-mix(in srgb, var(--m7-tab-color) 20%, transparent) !important;
+}
+
+/* 暗色模式子级 item 背景 */
+.dark .VPSidebar .VPSidebarItem.level-1 > .item,
+.dark .VPSidebar .VPSidebarItem.level-2 > .item,
+.dark .VPSidebar .VPSidebarItem.level-3 > .item {
+  background: color-mix(in srgb, var(--m7-tab-color) 10%, transparent) !important;
+}
+
+.dark .VPSidebar .VPSidebarItem.level-1 > .item:hover,
+.dark .VPSidebar .VPSidebarItem.level-2 > .item:hover,
+.dark .VPSidebar .VPSidebarItem.level-3 > .item:hover {
+  background: color-mix(in srgb, var(--m7-tab-color) 16%, transparent) !important;
+}
+
+/* 暗色模式激活态 */
+.dark .VPSidebar .VPLink.link.active,
+.dark .VPSidebar .VPLink.link.active > .item,
+.dark .VPSidebar .item.is-active,
+.dark .VPSidebar .VPSidebarItem.is-active > .item {
+  background: color-mix(in srgb, var(--m7-tab-color) 18%, transparent) !important;
+}
+
+/* ============= 滚动条 ============= */
+.VPSidebar::-webkit-scrollbar { width: 6px; }
+.VPSidebar::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--vp-c-text-3) 30%, transparent);
+  border-radius: 10px;
+}
