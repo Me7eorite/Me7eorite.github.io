@@ -25,7 +25,7 @@ export default defineConfig({
     lastUpdatedText: '最后更新',
 
     // 暂时不配 logo，等你有 logo 图再加
-    // logo: '/logo.png',
+    logo: '/logo.png',
 
     nav: [
       { text: '首页', link: '/' },
