@@ -515,40 +515,75 @@ html body .qo-link {
   margin: 4px 0 !important;
 }
 
-/* 表格 - 自适应宽度 + 居中 */
+/* 表格 - 高级清爽风格 */
 .vp-doc table {
-  margin: 16px auto !important;
-  border-radius: 8px;
-  overflow: hidden;
+  margin: 24px 0 !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
   border-collapse: separate !important;
-  border-spacing: 0;
-  border: 1px solid var(--vp-c-divider);
-  width: auto !important;
+  border-spacing: 0 !important;
+  border: 1px solid #e5e7eb !important;
+  width: 100% !important;
   max-width: 100% !important;
-  display: inline-table;
+  display: table !important;
   font-size: 15px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
 }
 
 .vp-doc table th {
-  background: var(--vp-c-bg-soft) !important;
-  font-weight: 600;
-  padding: 14px 18px !important;
-  border-bottom: 2px solid var(--vp-c-divider);
+  background: #f8fafc !important;
+  color: #334155 !important;
+  font-weight: 700 !important;
+  padding: 16px 20px !important;
+  border-bottom: 1px solid #e5e7eb !important;
   line-height: 1.6 !important;
+  text-align: left !important;
 }
 
 .vp-doc table td {
-  padding: 14px 18px !important;
-  border-top: 1px solid var(--vp-c-divider);
-  line-height: 1.8 !important;
+  padding: 14px 20px !important;
+  border-top: 1px solid #e5e7eb !important;
+  line-height: 1.7 !important;
 }
 
-.vp-doc table tr:nth-child(even) td {
-  background: color-mix(in srgb, var(--vp-c-bg-soft) 50%, transparent);
+.vp-doc table tbody tr:nth-child(even) td {
+  background: #fcfcfd !important;
 }
 
-.vp-doc table tr:hover td {
-  background: color-mix(in srgb, #3498db 5%, transparent);
+.vp-doc table tbody tr:nth-child(odd) td {
+  background: #fff !important;
+}
+
+.vp-doc table tbody tr:hover td {
+  background: #f1f5f9 !important;
+}
+
+/* 暗色模式 */
+.dark .vp-doc table {
+  border-color: #1e293b !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+.dark .vp-doc table th {
+  background: #0f172a !important;
+  color: #cbd5e1 !important;
+  border-bottom-color: #1e293b !important;
+}
+
+.dark .vp-doc table td {
+  border-top-color: #1e293b !important;
+}
+
+.dark .vp-doc table tbody tr:nth-child(even) td {
+  background: #111827 !important;
+}
+
+.dark .vp-doc table tbody tr:nth-child(odd) td {
+  background: #0f172a !important;
+}
+
+.dark .vp-doc table tbody tr:hover td {
+  background: #1e293b !important;
 }
 
 /* 分隔线 hr - 渐变虚化 */
