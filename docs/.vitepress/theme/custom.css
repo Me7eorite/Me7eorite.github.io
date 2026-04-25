@@ -2,6 +2,25 @@
    自定义样式 - Quiet Outline 相关
 ================================= */
 
+/* 引入字体 */
+@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-mono-webfont@1.6/style.css');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600&display=swap');
+
+/* 全局字体配置 */
+:root {
+  --vp-font-family-base: 'LXGW WenKai Mono', 'Source Code Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  --vp-font-family-mono: 'Source Code Pro', 'JetBrains Mono', monospace;
+}
+
+body {
+  font-family: 'LXGW WenKai Mono', 'Source Code Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* 英文/数字优先使用 Source Code Pro */
+.vp-doc :not(pre):not(code) {
+  font-family: 'LXGW WenKai Mono', 'Source Code Pro', sans-serif;
+}
+
 /* 隐藏 VitePress 默认 outline */
 .VPDocAsideOutline { display: none !important; }
 
@@ -212,4 +231,355 @@ html body .qo-link {
   word-break: normal !important;
   overflow-wrap: break-word !important;
   text-wrap: pretty;       /* 新版浏览器避免末行孤字 */
+}
+
+/* ===============================
+   隐藏空的 cover-img 容器
+================================= */
+
+/* 隐藏没有实际 img 子元素的 cover-img */
+.cover-img:not(:has(img[src])),
+.cover-img:empty {
+  display: none !important;
+}
+
+/* 隐藏 src 为空的 img */
+.cover-img img:not([src]),
+.cover-img img[src=""] {
+  display: none !important;
+}
+
+/* 兜底：如果 :has 不支持，直接隐藏可疑的小尺寸 cover-img */
+@media (max-width: 400px) {
+  .cover-img {
+    display: none !important;
+  }
+}
+
+/* ===============================
+   代码块样式 - 清爽高级风格
+================================= */
+
+/* 代码块容器 */
+.vp-doc div[class*="language-"] {
+  position: relative;
+  margin: 24px 0 !important;
+  border-radius: 16px !important;
+  border: 1px solid #e2e8f0 !important;
+  overflow: hidden !important;
+  background: #f8fafc !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* 右上角语言标签 */
+.vp-doc div[class*="language-"]::before {
+  content: attr(class);
+  position: absolute;
+  top: 10px;
+  right: 50px;
+  z-index: 2;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+/* 隐藏 VitePress 默认 lang 标签 */
+.vp-doc div[class*="language-"] > span.lang {
+  display: none !important;
+}
+
+/* pre 样式 */
+.vp-doc div[class*="language-"] pre {
+  padding: 20px !important;
+  margin: 0 !important;
+  background: transparent !important;
+  overflow-x: auto !important;
+  font-family: 'Source Code Pro', monospace !important;
+  font-size: 16px !important;
+  line-height: 1.7 !important;
+}
+
+/* code 字体 */
+.vp-doc div[class*="language-"] code {
+  font-family: 'Source Code Pro', monospace !important;
+}
+
+/* 复制按钮位置 */
+.vp-doc div[class*="language-"] > button.copy {
+  top: 10px !important;
+  right: 10px !important;
+}
+
+/* 复制成功状态 - 文字和图标变绿 */
+.vp-doc div[class*="language-"] > button.copy.copied,
+.vp-doc div[class*="language-"] > button.copy.copied::before {
+  color: #22c55e !important;
+}
+
+.vp-doc div[class*="language-"] > button.copy.copied svg {
+  color: #22c55e !important;
+}
+
+/* 暗色模式 */
+.dark .vp-doc div[class*="language-"] > button.copy.copied,
+.dark .vp-doc div[class*="language-"] > button.copy.copied::before {
+  color: #4ade80 !important;
+}
+
+.dark .vp-doc div[class*="language-"] > button.copy.copied svg {
+  color: #4ade80 !important;
+}
+
+/* 代码行高亮背景 */
+.vp-doc div[class*="language-"] .line.highlighted {
+  background: rgba(59, 130, 246, 0.08) !important;
+}
+
+/* 暗色模式适配 */
+.dark .vp-doc div[class*="language-"] {
+  background: #0f172a !important;
+  border-color: #1e293b !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+}
+
+.dark .vp-doc div[class*="language-"]::before {
+  color: #94a3b8;
+}
+
+.dark .vp-doc div[class*="language-"] .line.highlighted {
+  background: rgba(59, 130, 246, 0.15) !important;
+}
+
+/* ===============================
+   引用块 - Obsidian Callout 风格
+================================= */
+
+/* 引用块主样式 */
+.vp-doc blockquote {
+  margin: 16px 0 !important;
+  padding: 12px 16px !important;
+  border: none !important;
+  border-left: 4px solid #3498db !important;
+  border-radius: 0 8px 8px 0 !important;
+  background: color-mix(in srgb, #3498db 6%, transparent) !important;
+  color: var(--vp-c-text-1) !important;
+  font-style: normal !important;
+}
+
+/* 引用块内段落 */
+.vp-doc blockquote p {
+  margin: 4px 0 !important;
+  color: var(--vp-c-text-1) !important;
+}
+
+.vp-doc blockquote p:first-child { margin-top: 0 !important; }
+.vp-doc blockquote p:last-child { margin-bottom: 0 !important; }
+
+/* 嵌套引用块 - 橙色变体 */
+.vp-doc blockquote blockquote {
+  margin: 8px 0 !important;
+  border-left-color: #f39c12 !important;
+  background: color-mix(in srgb, #f39c12 6%, transparent) !important;
+}
+
+/* ===============================
+   标题装饰
+================================= */
+
+/* h1 - 渐变下划线 */
+.vp-doc h1 {
+  position: relative;
+  padding-bottom: 12px !important;
+  margin-bottom: 24px !important;
+  border-bottom: 2px solid var(--vp-c-divider) !important;
+  font-size: 32px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em;
+}
+
+.vp-doc h1::before {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 64px;
+  height: 2px;
+  background: linear-gradient(90deg, #e74c3c, #f39c12, #3498db);
+  border-radius: 2px;
+}
+
+/* h2 - 左侧蓝色竖条 */
+.vp-doc h2 {
+  position: relative;
+  padding-left: 14px !important;
+  margin-top: 36px !important;
+  margin-bottom: 16px !important;
+  border-top: none !important;
+  padding-top: 0 !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+}
+
+.vp-doc h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 4px;
+  background: #3498db;
+  border-radius: 2px;
+}
+
+/* h3 - 前缀 # 符号 */
+.vp-doc h3 {
+  margin-top: 28px !important;
+  margin-bottom: 12px !important;
+  font-size: 19px !important;
+  font-weight: 600 !important;
+  color: var(--vp-c-text-1) !important;
+}
+
+.vp-doc h3::before {
+  content: "# ";
+  color: #f39c12;
+  opacity: 0.5;
+  margin-right: 4px;
+  font-weight: 400;
+}
+
+/* h4 */
+.vp-doc h4 {
+  margin-top: 20px !important;
+  margin-bottom: 10px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+}
+
+/* ===============================
+   行内代码 - 柔和胶囊
+================================= */
+
+/* 行内代码主样式 */
+.vp-doc :not(pre) > code {
+  padding: 2px 7px !important;
+  margin: 0 1px;
+  border-radius: 5px !important;
+  background: rgba(120, 120, 120, 0.08) !important;
+  border: 1px solid color-mix(in srgb, var(--vp-c-divider) 60%, transparent);
+  color: #3498db !important;
+  font-family: 'Source Code Pro', monospace !important;
+  font-size: 0.88em !important;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* 暗色模式 */
+.dark .vp-doc :not(pre) > code {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: color-mix(in hsl, #3498db, white 25%) !important;
+}
+
+/* 链接里的 code 用品牌色 */
+.vp-doc a > code {
+  color: var(--vp-c-brand-1) !important;
+}
+
+/* ===============================
+   列表 / 表格 / 链接 / 分隔线
+================================= */
+
+/* 列表 - 项间距增加 */
+.vp-doc ul, .vp-doc ol {
+  margin: 12px 0 !important;
+  padding-left: 24px !important;
+}
+
+.vp-doc li {
+  margin: 6px 0 !important;
+  line-height: 1.7 !important;
+}
+
+.vp-doc li::marker {
+  color: #3498db;
+  font-weight: 600;
+}
+
+.vp-doc li > ul,
+.vp-doc li > ol {
+  margin: 4px 0 !important;
+}
+
+/* 表格 - 自适应宽度 + 居中 */
+.vp-doc table {
+  margin: 16px auto !important;
+  border-radius: 8px;
+  overflow: hidden;
+  border-collapse: separate !important;
+  border-spacing: 0;
+  border: 1px solid var(--vp-c-divider);
+  width: auto !important;
+  max-width: 100% !important;
+  display: inline-table;
+  font-size: 15px !important;
+}
+
+.vp-doc table th {
+  background: var(--vp-c-bg-soft) !important;
+  font-weight: 600;
+  padding: 14px 18px !important;
+  border-bottom: 2px solid var(--vp-c-divider);
+  line-height: 1.6 !important;
+}
+
+.vp-doc table td {
+  padding: 14px 18px !important;
+  border-top: 1px solid var(--vp-c-divider);
+  line-height: 1.8 !important;
+}
+
+.vp-doc table tr:nth-child(even) td {
+  background: color-mix(in srgb, var(--vp-c-bg-soft) 50%, transparent);
+}
+
+.vp-doc table tr:hover td {
+  background: color-mix(in srgb, #3498db 5%, transparent);
+}
+
+/* 分隔线 hr - 渐变虚化 */
+.vp-doc hr {
+  margin: 32px 0 !important;
+  border: none !important;
+  height: 1px !important;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--vp-c-divider) 20%,
+    var(--vp-c-divider) 80%,
+    transparent 100%
+  ) !important;
+}
+
+/* 链接 - 虚线下划线 */
+.vp-doc a {
+  color: #3498db !important;
+  text-decoration: none !important;
+  border-bottom: 1px dashed color-mix(in srgb, #3498db 40%, transparent);
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.vp-doc a:hover {
+  color: color-mix(in hsl, #3498db, black 15%) !important;
+  border-bottom-color: #3498db;
+}
+
+/* 段落 - 行高加大 + 字间距 */
+.vp-doc p {
+  line-height: 1.9 !important;
+  letter-spacing: 0.02em !important;
+  margin: 12px 0 !important;
 }

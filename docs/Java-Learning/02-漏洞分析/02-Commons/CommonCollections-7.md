@@ -1,3 +1,8 @@
+---
+title: CommonCollections-7
+description: CC7 利用 Hashtable 在反序列化时触发 equals 比较，绕开了 CC1 对 AnnotationInvocationHandler 的依赖，对 JDK 无版本限制。
+---
+
 # CommonCollections-7
 
 > CC7 利用 `Hashtable#readObject` 作为入口，通过两个哈希值相同的 LazyMap 在 `reconstitutionPut` 中触发 `equals` 比较，进而调用 `LazyMap#get` 触发链。
