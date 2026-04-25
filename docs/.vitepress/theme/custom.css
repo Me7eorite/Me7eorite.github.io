@@ -1,0 +1,215 @@
+/* ===============================
+   自定义样式 - Quiet Outline 相关
+================================= */
+
+/* 隐藏 VitePress 默认 outline */
+.VPDocAsideOutline { display: none !important; }
+
+/* body 加 .outline-hidden 时隐藏右侧 aside，让主内容撑满 */
+body.outline-hidden .VPDocAside { display: none !important; }
+body.outline-hidden .VPDoc.has-aside .content-container { max-width: none !important; }
+body.outline-hidden .VPDoc.has-aside .content { max-width: 100% !important; }
+
+/* 隐藏时让 asidebar 容器也不占空间 */
+body.outline-hidden .VPDoc .aside { display: none !important; }
+
+/* 隐藏目录时拖动手柄也隐藏 */
+body.outline-hidden .aside-resizer { display: none !important; }
+
+/* ===============================
+   目录容器贴左 + 可调整宽度
+================================= */
+
+/* 定义默认宽度变量（可被 AsideResizer.vue 动态修改） */
+:root {
+  --aside-width: 240px;
+}
+
+/* 1. container 保持 flex（VitePress 默认） */
+.VPDoc .container,
+div.container {
+  display: flex !important;
+}
+
+/* 2. aside 宽度由 CSS 变量控制 + 允许 resizer 定位 */
+.VPDoc .aside,
+div.aside {
+  flex: 0 0 var(--aside-width) !important;
+  width: var(--aside-width) !important;
+  max-width: var(--aside-width) !important;
+  min-width: var(--aside-width) !important;
+  order: 2 !important;                /* 让 aside 排在右边 */
+  position: relative !important;       /* 关键：让 resizer 能 absolute 定位 */
+  padding-left: 8px !important;
+  overflow: hidden !important;         /* 不允许子元素溢出 */
+}
+
+/* 3. content 占据剩余空间（动态宽度） */
+.VPDoc .content,
+div.content {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  order: 1 !important;
+  max-width: calc(100% - var(--aside-width)) !important;
+}
+
+/* 4. content-container 不要超出 content */
+.VPDoc .content-container,
+div.content-container {
+  max-width: 100% !important;
+}
+
+/* 5. outline 组件本身贴左，但留一点呼吸空间 */
+.aside .quiet-outline {
+  padding-left: 12px !important;      /* 让箭头距离左边缘 12px，不再贴边 */
+  margin-left: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* ===============================
+   导航栏宽度独立（不受 aside 宽度影响）
+================================= */
+
+/* 1. 导航栏外层强制全宽 */
+.VPNav,
+.VPNavBar,
+.VPNavBar.has-sidebar {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* 2. 导航栏内容区域全宽 */
+.VPNavBar > .container,
+.VPNavBar .content,
+.VPNavBar .content-body,
+.VPNavBar .wrapper {
+  max-width: 100% !important;
+  width: 100% !important;
+  padding-right: 24px !important;   /* 给最右侧菜单留点边距 */
+}
+
+/* 3. 导航栏右侧菜单区不受 aside 宽度影响 */
+.VPNavBar .VPNavBarMenu,
+.VPNavBar .VPNavBarExtra,
+.VPNavBar .VPNavBarHamburger,
+.VPNavBar .VPNavBarSearch {
+  margin-right: 0 !important;
+}
+
+/* 4. 如果顶部导航有跟 aside 同宽的占位 div，强制隐藏 */
+.VPNavBar .divider,
+.VPNavBar .divider-line {
+  display: none !important;
+}
+
+/* 5. 导航栏标题区域宽度也独立 */
+.VPNavBarTitle {
+  width: auto !important;
+  max-width: none !important;
+  flex: 0 0 auto !important;
+}
+
+/* ===============================
+   限制 aside 内部内容宽度（不动 aside-container）
+================================= */
+
+/* aside 内所有直接子元素：宽度不超过父容器 */
+html body div.aside > * {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* aside-content 撑满（在 aside-container 内部） */
+html body .aside-content {
+  width: var(--aside-width, 240px) !important;
+  max-width: var(--aside-width, 240px) !important;
+  box-sizing: border-box !important;
+}
+
+/* outline 组件本身撑满 */
+html body .quiet-outline {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* outline 内的所有元素都遵守父容器宽度 */
+html body .quiet-outline * {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* qo-row 宽度限制 */
+html body .qo-row {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* 链接最终不超过容器宽度 */
+html body .qo-link {
+  max-width: 100% !important;
+  width: auto !important;
+  display: block !important;
+  white-space: normal !important;
+  word-break: break-all !important;
+  overflow-wrap: break-word !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+}
+
+/* ===============================
+   缩小 sidebar 宽度，右边缘与分组卡片对齐
+================================= */
+
+/* 1. 缩小 sidebar 宽度（306 → 280） */
+.VPSidebar {
+  width: 280px !important;
+  max-width: 280px !important;
+
+  /* 同时调整 padding */
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  box-sizing: border-box !important;
+}
+
+/* 2. VitePress 默认变量也覆盖 */
+:root {
+  --vp-sidebar-width: 280px;
+}
+
+/* 3. sidebar 内分组卡片占满 */
+.VPSidebar .group,
+.VPSidebar .VPSidebarItem.level-0 > .item {
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* 4. Logo 区域也遵守同样宽度 */
+.VPSidebar .VPNavBarTitle,
+.VPSidebar > .group:first-child {
+  width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* 5. 主内容区跟随 sidebar 新宽度 */
+@media (min-width: 960px) {
+  .VPContent.has-sidebar {
+    padding-left: 280px !important;
+  }
+}
+
+/* 6. 左侧 sidebar 链接也启用智能换行（避免孤字） */
+.VPSidebar .VPSidebarItem .text,
+.VPSidebar .VPLink .text {
+  word-break: normal !important;
+  overflow-wrap: break-word !important;
+  text-wrap: pretty;       /* 新版浏览器避免末行孤字 */
+}

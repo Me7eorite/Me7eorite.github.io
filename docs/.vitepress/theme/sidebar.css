@@ -34,48 +34,65 @@
   --m7-text-muted: var(--vp-c-text-2);
 }
 
-/* ============= 整体留白：Logo 与卡片左对齐 ============= */
+/* ============= 整体留白：Logo 与卡片左右对齐 ============= */
+/* 侧边栏整体统一左右内边距 */
 .VPSidebar {
-  padding-left: 16px !important;
-  padding-right: 8px !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  box-sizing: border-box !important;
 }
 
 .VPSidebar .curtain { display: none; }
 
-/* nav 容器内部不加 padding，让 Logo 和卡片用同一基准对齐 */
+/* VitePress 侧边栏顶部的分隔元素也遵守 sidebar 内边距 */
+.VPSidebar hr,
+.VPSidebar .divider,
+.VPSidebar .nav-divider,
+.VPSidebar .VPNavBarTitle::after {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* 隐藏 VitePress 默认的顶部遮罩/分隔 */
+.VPSidebar .VPNavBarTitle .divider,
+.VPSidebar > hr {
+  display: none !important;
+}
+
+/* nav 容器内部不加 padding */
 .VPSidebar .nav {
   padding: 8px 0 24px 0 !important;
 }
 
-/* Logo 区域去掉额外缩进，与卡片左对齐 */
+/* Logo 区域不再额外加内边距，占满宽度 */
 .VPSidebar .VPSidebarNav,
 .VPSidebar > .group:first-child,
-.VPSidebar .VPNavBarTitle,
-.VPSidebar > .group:first-child .VPSidebarItem {
+.VPSidebar .VPNavBarTitle {
   padding-left: 0 !important;
+  padding-right: 0 !important;
   margin-left: 0 !important;
+  margin-right: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 
-/* Logo 图片本身的容器对齐 */
-.VPSidebar .VPImage,
-.VPSidebar .title,
-.VPSidebar .VPNavBarTitle .title {
-  padding-left: 0 !important;
+/* 分组卡片宽度 = 100% */
+.VPSidebar .group,
+.VPSidebar .VPSidebarItem,
+.VPSidebar .VPSidebarItem.level-0 > .item {
+  width: 100% !important;
   margin-left: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box !important;
 }
 
-/* ============= 导航栏 Logo 对齐：与侧边栏卡片左边缘一致 ============= */
-/* header 内的 Logo 容器：左边距 16px，与侧边栏整体 padding-left 对齐 */
-.VPNav .VPNavBarTitle {
-  padding-left: 16px !important;
-}
-
-.VPNav .VPNavBar .title,
-.VPNav .VPNavBar .VPImage,
-.VPNav .VPNavBar .VPNavBarTitle > div,
-.VPNav .VPNavBar .VPNavBarTitle > div > div {
-  padding-left: 0 !important;
-  margin-left: 0 !important;
+/* 子级缩进只通过 margin-left 控制 */
+.VPSidebar .items {
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+  box-sizing: border-box !important;
 }
 
 /* sidebar-nav-before slot 容器对齐 */
@@ -90,6 +107,19 @@
 .VPSidebar .VPSidebarItem {
   width: 100%;
   box-sizing: border-box;
+}
+
+/* ============= 导航栏 Logo 对齐：左边距 24px ============= */
+.VPNav .VPNavBarTitle {
+  padding-left: 24px !important;
+}
+
+.VPNav .VPNavBar .title,
+.VPNav .VPNavBar .VPImage,
+.VPNav .VPNavBar .VPNavBarTitle > div,
+.VPNav .VPNavBar .VPNavBarTitle > div > div {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
 }
 
 /* ============= 同组同色：彩虹色只作用在顶级 group 上 ============= */
