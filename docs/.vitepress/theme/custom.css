@@ -116,6 +116,11 @@ div.content-container {
   margin-right: 0 !important;
 }
 
+/* 首页搜索框：向右移动，与其他页面位置对齐 */
+.VPNavBar.home .VPNavBarSearch {
+  transform: translateX(210px) !important;
+}
+
 /* 4. 如果顶部导航有跟 aside 同宽的占位 div，强制隐藏 */
 .VPNavBar .divider,
 .VPNavBar .divider-line {
@@ -129,12 +134,9 @@ div.content-container {
   flex: 0 0 auto !important;
 }
 
-/* 6. 首页（无 sidebar）Logo 对齐到 x=24（与内页一致） */
-@media (min-width: 960px) {
-  /* 用负 margin 抵消 container 的 32px 左 padding，让 VPNavBarTitle 落到 x=0 */
-  .VPNav .VPNavBar:not(.has-sidebar) .VPNavBarTitle {
-    margin-left: -32px !important;
-  }
+/* 暴力方案：首页 Logo 强制向左偏移 70px */
+.VPNavBar:not(.has-sidebar) .VPNavBarTitle {
+  transform: translateX(-70px) !important;
 }
 
 /* ===============================
