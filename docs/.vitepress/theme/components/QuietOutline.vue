@@ -90,12 +90,27 @@ function toggle(link: string) {
 
 function onScroll() {
   const headings = document.querySelectorAll('.VPDoc .vp-doc :is(h1, h2, h3, h4)')
+  if (!headings.length) return
+
+  const offset = 90
   let current = ''
+  let minDistance = Infinity
+
   headings.forEach((h) => {
     const rect = h.getBoundingClientRect()
-    if (rect.top < 120) current = '#' + h.id
+    // 只考虑进入视口上半部分的标题
+    if (rect.top <= window.innerHeight * 0.45) {
+      const distance = Math.abs(rect.top - offset)
+      if (distance < minDistance) {
+        minDistance = distance
+        current = '#' + h.id
+      }
+    }
   })
-  activeLink.value = current
+
+  if (current) {
+    activeLink.value = current
+  }
 }
 
 watch(() => route.path, () => {

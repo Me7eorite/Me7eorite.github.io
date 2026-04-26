@@ -67,10 +67,19 @@
 }
 
 /* Logo 区域不再额外加内边距，占满宽度 */
+/* VPSidebarNav 和分组卡片从 sidebar padding 内容区开始，不再额外偏移 */
 .VPSidebar .VPSidebarNav,
-.VPSidebar > .group:first-child,
-.VPSidebar .VPNavBarTitle {
+.VPSidebar > .group:first-child {
   padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* VPNavBarTitle 用 padding-left: 24px（第 113-115 行）对齐 logo 到 x=24 */
+.VPSidebar .VPNavBarTitle {
   padding-right: 0 !important;
   margin-left: 0 !important;
   margin-right: 0 !important;

@@ -129,6 +129,14 @@ div.content-container {
   flex: 0 0 auto !important;
 }
 
+/* 6. 首页（无 sidebar）Logo 对齐到 x=24（与内页一致） */
+@media (min-width: 960px) {
+  /* 用负 margin 抵消 container 的 32px 左 padding，让 VPNavBarTitle 落到 x=0 */
+  .VPNav .VPNavBar:not(.has-sidebar) .VPNavBarTitle {
+    margin-left: -32px !important;
+  }
+}
+
 /* ===============================
    限制 aside 内部内容宽度（不动 aside-container）
 ================================= */
@@ -209,11 +217,18 @@ html body .qo-link {
   box-sizing: border-box !important;
 }
 
-/* 4. Logo 区域也遵守同样宽度 */
-.VPSidebar .VPNavBarTitle,
+/* 4. Logo 区域与分组卡片宽度 */
+/* 分组卡片占满宽度，padding-left: 0（在 sidebar padding 内容区内，从 x=24 开始） */
 .VPSidebar > .group:first-child {
   width: 100% !important;
   padding-left: 0 !important;
+  padding-right: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* VPNavBarTitle 保持 width:100%，padding-left 由 sidebar.css 第 113-115 行提供 24px */
+.VPSidebar .VPNavBarTitle {
+  width: 100% !important;
   padding-right: 0 !important;
   box-sizing: border-box !important;
 }
@@ -621,10 +636,78 @@ html body .qo-link {
 }
 
 /* ==========================================
-   首页 Logo 与文章页侧边栏 Logo X 坐标对齐
+   侧边栏背景 - 安静的纹理底（不抢眼）
 ========================================== */
 
-/* 暴力方案：首页 Logo 强制向左偏移 70px */
-.VPNavBar:not(.has-sidebar) .VPNavBarTitle {
-  transform: translateX(-70px) !important;
+.VPSidebar {
+  isolation: isolate;
+  background: color-mix(in srgb, var(--vp-c-bg) 85%, transparent) !important;
+}
+
+.VPSidebar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/bg.webp');
+  background-repeat: repeat;
+  background-size: 350px auto;              /* 稀疏大叶，不那么密集 */
+  opacity: 0.05;                            /* 极淡，几乎隐形 */
+  filter: blur(0.5px) saturate(0.5);        /* 更模糊、更低饱和 */
+  pointer-events: none;
+  z-index: -1;
+  /* 右侧边缘柔和淡出 */
+  -webkit-mask-image: linear-gradient(to right, black 0, black 60%, transparent 100%);
+  mask-image: linear-gradient(to right, black 0, black 60%, transparent 100%);
+}
+
+/* 暗色模式 */
+.dark .VPSidebar::before {
+  opacity: 0.03;
+  filter: blur(0.5px) saturate(0.4) brightness(0.7);
+}
+
+.dark .VPSidebar {
+  background: color-mix(in srgb, var(--vp-c-bg) 90%, transparent) !important;
+}
+
+/* 移动端（≤ 960px）：确保叶子不覆盖抽屉菜单 */
+@media (max-width: 959px) {
+  .VPSidebar::before {
+    opacity: 0;
+  }
+}
+
+/* ==========================================
+   浅色主题：侧边栏与正文分界线
+========================================== */
+
+/* 仅浅色主题：侧边栏纯白背景 + 单条右侧分割线 */
+html:not(.dark) .VPSidebar {
+  background: var(--vp-c-bg) !important;          /* 纯白，不透明 */
+  border-right: 1px solid var(--vp-c-divider);    /* 只保留一条分割线 */
+  box-shadow: none;                               /* 覆盖旧规则，避免重叠 */
+}
+
+/* 浅色主题：侧边栏顶部 curtain 也保持纯白 */
+html:not(.dark) .VPSidebar .curtain {
+  background: var(--vp-c-bg);
+}
+
+/* 暗色模式：正文保持纯白背景 */
+html:not(.dark) .VPContent {
+  background: var(--vp-c-bg);
+}
+
+/* ===============================
+   TOC 滚动定位修复
+================================= */
+
+/* 为文章标题增加滚动偏移，避免被固定导航栏遮挡 */
+.vp-doc h1,
+.vp-doc h2,
+.vp-doc h3,
+.vp-doc h4,
+.vp-doc h5,
+.vp-doc h6 {
+  scroll-margin-top: 90px;
 }
