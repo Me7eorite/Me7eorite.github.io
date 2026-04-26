@@ -4,6 +4,7 @@ import { generateSidebar } from 'vitepress-sidebar'
 // 导入主题的配置
 import { blogTheme } from './blog-theme'
 
+
 type SidebarNode = {
   link?: string
   items?: SidebarNode[]
@@ -40,7 +41,9 @@ export default defineConfig({
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }]
   ],
-
+  markdown: {
+    math: true
+  },
   themeConfig: {
     sidebar: {
       '/JavaSec/': withLinkPrefix(

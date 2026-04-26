@@ -1,13 +1,23 @@
 // 主题独有配置
+import type { Theme } from '@sugarat/theme'
 import { getThemeConfig } from '@sugarat/theme/node'
+
+
+const baseUrl = 'https://me7.top'
+const RSS: Theme.RSSOptions = {
+  title: 'M7 Lab',
+  baseUrl,
+  copyright: 'Copyright (c) 2026-present, me7eorite',
+}
 
 // 所有配置项，详见文档: https://theme.sugarat.top/
 const blogTheme = getThemeConfig({
   // 默认开启 pagefind 离线全文搜索
-  // search: false,  // 如想关闭，取消此行注释
-
+  search: false,  // 如想关闭，取消此行注释
+  // mermaid: true,
   // 页脚
   footer: {
+    version: false,
     copyright: 'MIT License | me7eorite',
   },
 
@@ -30,6 +40,7 @@ const blogTheme = getThemeConfig({
       url: 'https://github.com/Me7eorite',
     },
   ],
+  RSS
 
   // 公告（首次访问会弹出）
   // 暂时关掉，等你想发公告再开
