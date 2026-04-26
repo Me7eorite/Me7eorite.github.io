@@ -496,12 +496,12 @@ html body .qo-link {
 
 /* 列表 - 项间距增加 */
 .vp-doc ul, .vp-doc ol {
-  margin: 12px 0 !important;
+  margin: 8px 0 !important;
   padding-left: 24px !important;
 }
 
 .vp-doc li {
-  margin: 6px 0 !important;
+  margin: 3px 0 !important;
   line-height: 1.7 !important;
 }
 
@@ -531,11 +531,11 @@ html body .qo-link {
 }
 
 .vp-doc table th {
-  background: #f8fafc !important;
-  color: #334155 !important;
+  background: #f0f9ff !important;
+  color: #0369a1 !important;
   font-weight: 700 !important;
   padding: 16px 20px !important;
-  border-bottom: 1px solid #e5e7eb !important;
+  border-bottom: 1px solid #bae6fd !important;
   line-height: 1.6 !important;
   text-align: left !important;
 }
@@ -565,9 +565,9 @@ html body .qo-link {
 }
 
 .dark .vp-doc table th {
-  background: #0f172a !important;
-  color: #cbd5e1 !important;
-  border-bottom-color: #1e293b !important;
+  background: #0c4a6e !important;
+  color: #7dd3fc !important;
+  border-bottom-color: #0369a1 !important;
 }
 
 .dark .vp-doc table td {
@@ -614,7 +614,17 @@ html body .qo-link {
 
 /* 段落 - 行高加大 + 字间距 */
 .vp-doc p {
+  font-size: 17px !important;
   line-height: 1.9 !important;
   letter-spacing: 0.02em !important;
-  margin: 12px 0 !important;
+  margin: 8px 0 !important;
+}
+
+/* ==========================================
+   首页 Logo 与文章页侧边栏 Logo X 坐标对齐
+========================================== */
+
+/* 暴力方案：首页 Logo 强制向左偏移 70px */
+.VPNavBar:not(.has-sidebar) .VPNavBarTitle {
+  transform: translateX(-70px) !important;
 }

@@ -52,11 +52,31 @@ export default defineConfig({
         }) as SidebarNode[],
         '/Java-Learning/'
       ),
-      '/AI-Learning/': generateSidebar({
+      '/AI-Learning/':  withLinkPrefix(generateSidebar({
         documentRootPath: 'docs',
         collapsed: true,
         scanStartPath: 'AI-Learning'
-      })
+      }) as SidebarNode[],
+        '/AI-Learning/'
+      ),
+      '/Web3-Learning/': withLinkPrefix(
+        generateSidebar({
+          documentRootPath: 'docs',
+          scanStartPath: 'Web3-Learning',
+          useTitleFromFileHeading: true,
+          collapsed: true,
+        }) as SidebarNode[],
+        '/Web3-Learning/'
+      ),
+      '/Cloud-Learning/': withLinkPrefix(
+        generateSidebar({
+          documentRootPath: 'docs',
+          scanStartPath: 'Cloud-Learning',
+          useTitleFromFileHeading: true,
+          collapsed: true,
+        }) as SidebarNode[],
+        '/Cloud-Learning/'
+      ),
     },
     outline: {
       level: [1, 4],
