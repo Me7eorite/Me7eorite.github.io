@@ -43,39 +43,39 @@ export default defineConfig({
 
   themeConfig: {
     sidebar: {
-      '/Java-Learning/': withLinkPrefix(
+      '/JavaSec/': withLinkPrefix(
         generateSidebar({
           documentRootPath: 'docs',
-          scanStartPath: 'Java-Learning',
+          scanStartPath: 'JavaSec',
           useTitleFromFileHeading: true,
           collapsed: true,
         }) as SidebarNode[],
-        '/Java-Learning/'
+        '/JavaSec/'
       ),
-      '/AI-Learning/':  withLinkPrefix(generateSidebar({
+      '/AIHub/':  withLinkPrefix(generateSidebar({
         documentRootPath: 'docs',
         collapsed: true,
-        scanStartPath: 'AI-Learning'
+        scanStartPath: 'AIHub'
       }) as SidebarNode[],
-        '/AI-Learning/'
+        '/AIHub/'
       ),
-      '/Web3-Learning/': withLinkPrefix(
+      '/Web3Lab/': withLinkPrefix(
         generateSidebar({
           documentRootPath: 'docs',
-          scanStartPath: 'Web3-Learning',
+          scanStartPath: 'Web3Lab',
           useTitleFromFileHeading: true,
           collapsed: true,
         }) as SidebarNode[],
-        '/Web3-Learning/'
+        '/Web3Lab/'
       ),
-      '/Cloud-Learning/': withLinkPrefix(
+      '/CloudOps/': withLinkPrefix(
         generateSidebar({
           documentRootPath: 'docs',
-          scanStartPath: 'Cloud-Learning',
+          scanStartPath: 'CloudOps',
           useTitleFromFileHeading: true,
           collapsed: true,
         }) as SidebarNode[],
-        '/Cloud-Learning/'
+        '/CloudOps/'
       ),
     },
     outline: {
