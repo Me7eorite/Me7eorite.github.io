@@ -14,10 +14,10 @@ hidden: true
 
 ### 01 Foundation
 
-- [密码学 Crypto](./01_Foundation/Crypto/index.md)
-- [区块链 Blockchain](./01_Foundation/Blockchain/index.md)
+- [密码学 Crypto](./01_Foundation/01_Crypto/)
+- [区块链 Blockchain](./01_Foundation/02_Blockchai/)
 
-### 02 Development
+<!-- ### 02 Development
 
 - [Solidity 智能合约开发](./02_Development/Solidity/index.md)
 
@@ -31,7 +31,7 @@ hidden: true
 
 ### 05 Projects
 
-- [项目实战](./05_Projects/index.md)
+- [项目实战](./05_Projects/index.md) -->
 
 ## 推荐学习顺序
 

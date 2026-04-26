@@ -90,10 +90,10 @@ export default defineConfig({
 
     nav: [
       { text: '首页', link: '/' },
-      { text: '🤖 AI', link: '/AI-Learning/' },
-      { text: '☕ Java', link: '/Java-Learning/' },
-      { text: '⛓️ Web3', link: '/Web3-Learning/' },
-      { text: '☁️ 云原生', link: '/Cloud-Learning/' },
+      { text: '🤖 AI', link: '/AIHub/' },
+      { text: '☕ Java', link: '/JavaSec/' },
+      { text: '⛓️ Web3', link: '/Web3Lab/' },
+      { text: '☁️ 云原生', link: '/CloudOps/' },
     ],
 
     socialLinks: [
