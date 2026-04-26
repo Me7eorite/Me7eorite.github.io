@@ -1,6 +1,13 @@
 ---
 title: CommonCollections-7
 description: CC7 利用 Hashtable 在反序列化时触发 equals 比较，绕开了 CC1 对 AnnotationInvocationHandler 的依赖，对 JDK 无版本限制。
+date: 2026-04-25
+tag:
+  - Java
+  - Security
+author: me7eorite
+hidden: true
+readingTime: true
 ---
 
 # CommonCollections-7

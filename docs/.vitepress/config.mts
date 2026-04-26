@@ -79,7 +79,7 @@ export default defineConfig({
       ),
     },
     outline: {
-      level: [1, 4],
+      level: [1, 6],
       label: '本页目录'
     },
     returnToTopLabel: '回到顶部',
