@@ -1,4 +1,4 @@
-name: Deploy VitePress site
+name: Deploy M7-Lab site
 
 on:
   push:
@@ -41,3 +41,4 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
