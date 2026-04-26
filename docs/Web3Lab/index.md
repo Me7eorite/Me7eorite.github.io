@@ -14,8 +14,8 @@ hidden: true
 
 ### 01 Foundation
 
-- [密码学 Crypto](./01_Foundation/01_Crypto/)
-- [区块链 Blockchain](./01_Foundation/02_Blockchai/)
+- [密码学-哈希函数与数字签名](./01_Foundation/01_Crypto/哈希函数与数字签名.md)
+- [区块链-区块结构解析](./01_Foundation/02_Blockchain/区块结构解析.md)
 
 <!-- ### 02 Development
 
