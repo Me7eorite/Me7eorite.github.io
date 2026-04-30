@@ -55,31 +55,31 @@ export default defineConfig({
         }) as SidebarNode[],
         '/JavaSec/'
       ),
-      '/AIHub/':  withLinkPrefix(generateSidebar({
-        documentRootPath: 'docs',
-        collapsed: true,
-        scanStartPath: 'AIHub'
-      }) as SidebarNode[],
-        '/AIHub/'
-      ),
-      '/Web3Lab/': withLinkPrefix(
-        generateSidebar({
-          documentRootPath: 'docs',
-          scanStartPath: 'Web3Lab',
-          useTitleFromFileHeading: true,
-          collapsed: true,
-        }) as SidebarNode[],
-        '/Web3Lab/'
-      ),
-      '/CloudOps/': withLinkPrefix(
-        generateSidebar({
-          documentRootPath: 'docs',
-          scanStartPath: 'CloudOps',
-          useTitleFromFileHeading: true,
-          collapsed: true,
-        }) as SidebarNode[],
-        '/CloudOps/'
-      ),
+      // '/AIHub/':  withLinkPrefix(generateSidebar({
+      //   documentRootPath: 'docs',
+      //   collapsed: true,
+      //   scanStartPath: 'AIHub'
+      // }) as SidebarNode[],
+      //   '/AIHub/'
+      // ),
+      // '/Web3Lab/': withLinkPrefix(
+      //   generateSidebar({
+      //     documentRootPath: 'docs',
+      //     scanStartPath: 'Web3Lab',
+      //     useTitleFromFileHeading: true,
+      //     collapsed: true,
+      //   }) as SidebarNode[],
+      //   '/Web3Lab/'
+      // ),
+      // '/CloudOps/': withLinkPrefix(
+      //   generateSidebar({
+      //     documentRootPath: 'docs',
+      //     scanStartPath: 'CloudOps',
+      //     useTitleFromFileHeading: true,
+      //     collapsed: true,
+      //   }) as SidebarNode[],
+      //   '/CloudOps/'
+      // ),
     },
     outline: {
       level: [1, 6],
@@ -93,10 +93,10 @@ export default defineConfig({
 
     nav: [
       { text: '首页', link: '/' },
-      { text: '🤖 AI', link: '/AIHub/' },
+      // { text: '🤖 AI', link: '/AIHub/' },
       { text: '☕ Java', link: '/JavaSec/' },
-      { text: '⛓️ Web3', link: '/Web3Lab/' },
-      { text: '☁️ 云原生', link: '/CloudOps/' },
+      // { text: '⛓️ Web3', link: '/Web3Lab/' },
+      // { text: '☁️ 云原生', link: '/CloudOps/' },
     ],
 
     socialLinks: [

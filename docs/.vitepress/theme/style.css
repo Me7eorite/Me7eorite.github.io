@@ -1,10 +1,21 @@
 /* 定义遮罩样式 */
 .VPHome {
-  background: radial-gradient(ellipse, rgba(var(--bg-gradient-home), 1) 0%, rgba(var(--bg-gradient-home), 0) 150%);
+  background:
+    linear-gradient(to bottom, rgba(var(--bg-gradient-home), 0.97), rgba(var(--bg-gradient-home), 0.9)),
+    radial-gradient(ellipse, rgba(var(--bg-gradient-home), 0.82) 0%, rgba(var(--bg-gradient-home), 0) 185%);
 }
 
 /* 自定义首页背景图 */
 .VPHome::before {
   background-image: url(./assets/bg.webp);
-  background-size: cover;
+  background-repeat: repeat;
+  background-size: 560px auto;
+  background-position: center top;
+  opacity: 0.07;
+  filter: saturate(0.28) brightness(1.08);
+}
+
+html.dark .VPHome::before {
+  opacity: 0.03;
+  filter: saturate(0.18) brightness(0.62);
 }

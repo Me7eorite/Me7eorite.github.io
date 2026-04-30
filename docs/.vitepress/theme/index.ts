@@ -14,9 +14,9 @@ export default {
   extends: BlogTheme,
   Layout() {
     return h(BlogTheme.Layout, null, {
-      'aside-outline-before': () => h(AsideResizer),  // 拖动调整手柄
-      'aside-outline-after': () => h(QuietOutline),   // 本页目录
+      'aside-outline-before': () => h(AsideResizer),
+      'aside-outline-after': () => h(QuietOutline),
       'nav-bar-content-after': () => h(OutlineToggle),
     })
-  }
+  },
 }
